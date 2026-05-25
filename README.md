@@ -1,6 +1,6 @@
 # Skill Manager
 
-#ão Geral
+# Visão Geral
 
 Sistema web fullstack voltado para visualização, organização e análise de competências técnicas em equipes de tecnologia.
 
