@@ -303,80 +303,9 @@ react.js
 
 # Estrutura do Banco de Dados
 
-## Tabelas Principais
+A modelagem do banco de dados foi planejada para suportar consultas analíticas e relacionamentos complexos entre usuários, competências e projetos.
 
-### usuarios
-
-```sql
-id
-nome
-email
-senha_hash
-bio
-cargo
-role
-equipe_id
-```
-
-### equipes
-
-```sql
-id
-nome
-descricao
-```
-
-### skill_categories
-
-```sql
-id
-nome
-```
-
-### skills
-
-```sql
-id
-nome
-categoria_id
-```
-
-### usuario_skill
-
-```sql
-usuario_id
-skill_id
-nivel
-anos_experiencia
-```
-
-### projetos
-
-```sql
-id
-nome
-descricao
-status
-```
-
-### projeto_skill
-
-```sql
-projeto_id
-skill_id
-```
-
-### invites
-
-```sql
-id
-codigo
-email
-equipe_id
-criado_por
-expira_em
-usado_em
-```
+- [Acesse o Diagrama de Entidade e Relacionamento (DER)](./der.md)
 
 ---
 

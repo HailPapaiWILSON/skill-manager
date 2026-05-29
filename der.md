@@ -5,6 +5,7 @@
 * id INT PK AUTO
 * nome VARCHAR(150)
 * email VARCHAR(255) UNIQUE
+* senha_hash VARCHAR(255)
 * bio TEXT
 * cargo VARCHAR(100)
 * role ENUM
