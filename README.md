@@ -333,7 +333,7 @@ Bibliotecas possíveis:
 
 ## Banco de Dados
 
-- MySQL
+- SQLite
 
 Responsável por:
 
