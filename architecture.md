@@ -21,4 +21,4 @@ Desenhado para ser utilizado por uma única organização, simplificando a gest�
 
 ## Modelagem de Dados
 A estrutura foi otimizada para consultas analíticas complexas e JOINs eficientes.
-- Veja o Diagrama de Entidade e Relacionamento (DER) em der.md.
+- Veja o Diagrama de Entidade e Relacionamento ([DER](./der.md)).
