@@ -22,7 +22,7 @@ Para detalhes completos das funcionalidades, veja [features.md](./features.md).
 
 O projeto foi desenhado com foco em analytics técnicos, evitando complexidades de RH e focando puramente em competências de engenharia.
 
-Saiba mais sobre a evolução e decisões técnicas em [architecture.md](./architecture.md)
+Saiba mais sobre a evolução e decisões técnicas em [architecture.md](./architecture.md). O modelo de dados detalhado pode ser encontrado no [DER](der.md).
 
 ## Instalação
 
