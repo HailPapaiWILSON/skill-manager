@@ -11,7 +11,7 @@ O Skill Manager funciona como um mapa técnico organizacional, permitindo identi
 - Dashboards Analíticos: Heatmaps e métricas sobre tecnologias mais utilizadas e riscos técnicos.
 - Mapeamento de Projetos: Relacionamento entre tecnologias, equipes e especialistas.
 
-Para detalhes completos das funcionalidades, veja [features.md](./features.md).
+Para detalhes completos das funcionalidades, veja [features.md](./docs/features.md).
 
 ## Tecnologias
 
@@ -22,7 +22,7 @@ Para detalhes completos das funcionalidades, veja [features.md](./features.md).
 
 O projeto foi desenhado com foco em analytics técnicos, evitando complexidades de RH e focando puramente em competências de engenharia.
 
-Saiba mais sobre a evolução e decisões técnicas em [architecture.md](./architecture.md).
+Saiba mais sobre a evolução e decisões técnicas em [architecture.md](./docs/architecture.md).
 
 ## Instalação
 
