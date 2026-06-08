@@ -1,58 +1,50 @@
-# DER
+# Diagrama de Entidade Relacionamento
 
-### Tabela: Usuários
+### Tabela: `equipes`
 
-* id INT PK AUTO
-* nome VARCHAR(150)
-* email VARCHAR(255) UNIQUE
-* senha_hash VARCHAR(255)
-* bio TEXT
-* cargo VARCHAR(100)
-* role ENUM
-* equipe_id INT FK
+* `id`: **INTEGER** [PK, AUTO]
+* `nome`: **TEXT** [NOT NULL, UNIQUE]
+* `descricao`: **TEXT**
+* `codigo_ingresso`: **TEXT** [NOT NULL, UNIQUE]
 
-### Tabela: Equipes
+### Tabela: `usuarios`
 
-* id INT PK AUTO
-* nome VARCHAR(120)
-* descricao TEXT
+* `id`: **INTEGER** [PK, AUTO]
+* `nome`: **TEXT** [NOT NULL]
+* `email`: **TEXT** [NOT NULL, UNIQUE]
+* `senha_hash`: **TEXT** [NOT NULL]
+* `bio`: **TEXT**
+* `role`: **ENUM** ['user', 'admin']
+* `equipe_id`: **INTEGER** [FK, NOT NULL] -> `equipes.id`
+* `criado_em`: **DATETIME**
 
-### Tabela: Tipos de Skill
+### Tabela: `categorias_skills`
 
-* id INT PK AUTO
-* nome VARCHAR(100)
+* `id`: **INTEGER** [PK, AUTO]
+* `nome`: **TEXT** [NOT NULL, UNIQUE]
 
-### Tabela: Skill
+### Tabela: `skills`
 
-* id INT PK AUTO
-* nome VARCHAR(120)
-* categoria_id INT FK
+* `id`: **INTEGER** [PK, AUTO]
+* `nome`: **TEXT** [NOT NULL, UNIQUE]
+* `categoria_id`: **INTEGER** [FK, NOT NULL] -> `categorias_skills.id`
 
-### Tabela: Skill dos Usuarios
+### Tabela: `skills_usuarios` (N:M)
 
-* usuario_id INT FK
-* skill_id INT FK
-* nivel ENUM
-* anos_experiencia INT
+* `usuario_id`: **INTEGER** [PK, FK] -> `usuarios.id`
+* `skill_id`: **INTEGER** [PK, FK] -> `skills.id`
+* `nivel`: **ENUM** ['junior', 'pleno', 'senior'] [NOT NULL]
+* `anos_experiencia`: **INTEGER** [DEFAULT: 0]
 
-### Tabela: Projetos
+### Tabela: `projetos`
 
-* id INT PK AUTO
-* nome VARCHAR(150)
-* descricao TEXT
-* status ENUM
+* `id`: **INTEGER** [PK, AUTO]
+* `nome`: **TEXT** [NOT NULL, UNIQUE]
+* `descricao`: **TEXT**
+* `status`: **ENUM** ['planejado', 'em_andamento', 'concluido', 'cancelado'] [DEFAULT: 'planejado']
+* `equipe_id`: **INTEGER** [FK, NOT NULL] -> `equipes.id`
 
-### Tabela: Skill de Projeto
+### Tabela: `skills_projeto` (N:M)
 
-* projeto_id INT FK
-* skill_id INT FK
-
-### Tabela: Convites
-
-* id INT PK AUTO
-* codigo VARCHAR(100)
-* email VARCHAR(255)
-* equipe_id INT FK
-* criado_por INT FK
-* expira_em TIMESTAMP
-* usado_em TIMESTAMP DEFAULT NULL
+* `projeto_id`: **INTEGER** [PK, FK] -> `projetos.id`
+* `skill_id`: **INTEGER** [PK, FK] -> `skills.id`
