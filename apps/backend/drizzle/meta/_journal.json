@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1780844101750,
+      "tag": "0000_optimal_union_jack",
+      "breakpoints": true
+    }
+  ]
+}
