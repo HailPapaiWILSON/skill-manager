@@ -9,3 +9,10 @@ export function normalizeEmail(value: string): string {
 export function normalizeCode(value: string): string {
   return value.trim().toUpperCase();
 }
+
+export function generateCode(): string {
+  return Math.random()
+    .toString(36)
+    .slice(2, 8)
+    .toLowerCase();
+}
