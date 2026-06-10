@@ -16,6 +16,12 @@ type CreateUserInput = {
   codigoIngresso: string;
 };
 
+type UpdateUserInput = {
+  nome?: string;
+  email?: string;
+  bio?: string | null;
+};
+
 export async function createUser(input: CreateUserInput) {
   const nome = normalizeText(input.nome);
   const email = normalizeEmail(input.email);
@@ -61,12 +67,6 @@ export async function getUserById(id: number) {
     },
   });
 }
-
-type UpdateUserInput = {
-  nome?: string;
-  email?: string;
-  bio?: string | null;
-};
 
 export async function updateUser(id: number, input: UpdateUserInput) {
   const data: Partial<typeof usuarios.$inferInsert> = {};
