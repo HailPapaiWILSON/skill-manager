@@ -37,11 +37,10 @@ router.put("/:id", async (res: any, req: any) => {
   res.json(team);
 });
 
-
 router.delete("/:id", async (req: any, res: any) => {
   await deleteTeam(Number(req.params.id));
 
   res.sendStatus(204);
-})
+});
 
 export default router;
