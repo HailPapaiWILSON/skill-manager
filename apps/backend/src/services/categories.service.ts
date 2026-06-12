@@ -3,7 +3,6 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { categoriasSkills } from "../db/schema.js";
 import { normalizeText } from "../utils/string.js";
-import type { TypeOf } from "zod";
 
 type CreateCategoryInput = {
   nome: string;
