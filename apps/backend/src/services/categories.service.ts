@@ -14,7 +14,7 @@ type UpdateCategoryInput = {
 };
 
 export async function listCategories() {
-  return await db.query.categoriasSkills.findFirst();
+  return await db.query.categoriasSkills.findMany();
 }
 
 export async function getCategoryById(id: number) {

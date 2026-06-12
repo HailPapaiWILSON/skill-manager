@@ -34,20 +34,11 @@ router.get("/:id", async (req, res) =>
     res.json(category);
 });
 
-router.get("/:id", async (req, res) =>
+router.post("/", async (req, res) =>
 {
-    const category = await getCategoryById(
-        Number(req.params.id)
-    );
+    const category = await createCategory(req.body);
 
-    if (!category)
-    {
-        return res.status(404).json({
-            error: "Categoria não encontrada",
-        });
-    }
-
-    res.json(category);
+    res.status(201).json(category);
 });
 
 router.put("/:id", async (req, res) =>
