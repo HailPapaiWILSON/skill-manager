@@ -13,7 +13,7 @@ export type UpdateSkillInput = {
   categoriaId?: number;
 };
 
-export async function listSkill() {
+export async function listSkills() {
   return db.query.skills.findMany({
     with: {
       categoria: true,
