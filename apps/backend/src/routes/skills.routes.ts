@@ -7,7 +7,6 @@ import {
   updateSkill,
   deleteSkill,
 } from "../services/skills.service.js";
-import { skills } from "../db/schema.js";
 
 const router = Router();
 
@@ -46,3 +45,5 @@ router.delete("/:id", async (req, res) => {
 
   res.sendStatus(204);
 });
+
+export default router;
