@@ -35,3 +35,12 @@ router.post("/", async (req, res) => {
 
   res.status(201).json(project);
 });
+
+router.put("/:id", async (req, res) => {
+  const project = await updateProject(
+    Number(req.params.id),
+    req.body
+  );
+
+  res.json(project);
+});
