@@ -63,5 +63,45 @@ export async function createProject(input: CreateProjectInput) {
     .returning();
 }
 
-// export async function updateProject(id: number, input: UpdateProjectInput) {}
+export async function updateProject(id: number, input: UpdateProjectInput) {
+  const project = await getProjectById(id);
+
+  if (!project) {
+    throw new Error("Projeto nao encontrado");
+  }
+
+  if (input.equipeId) {
+    const equipe = await db.query.equipes.findFirst({
+      where: eq(equipes.id, id),
+    });
+
+    if (!equipe) {
+      throw new Error("Equipe nao encontrado");
+    }
+  }
+
+  const [updated] = await db
+    .update(projetos)
+    .set({
+      ...(input.nome && {
+        nome: normalizeText(input.nome),
+      }),
+
+      ...(input.descricao !== undefined && {
+        descricao: input.descricao.trim(),
+      }),
+
+      ...(input.status && {
+        status: input.status,
+      }),
+
+      ...(input.equipeId && {
+        equipeId: input.equipeId,
+      }),
+    })
+    .where(eq(projetos.id, id))
+    .returning();
+
+  return updated;
+}
 // export async function deleteProject(id: number) {}
