@@ -44,3 +44,9 @@ router.put("/:id", async (req, res) => {
 
   res.json(project);
 });
+
+router.delete("/:id", async (req, res) => {
+  await deleteProject(Number(req.params.id));
+
+  res.sendStatus(204);
+});
