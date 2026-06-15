@@ -29,3 +29,9 @@ router.get("/:id", async (req, res) => {
 
   res.json(project);
 });
+
+router.post("/", async (req, res) => {
+  const project = await createProject(req.body);
+
+  res.status(201).json(project);
+});
