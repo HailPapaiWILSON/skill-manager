@@ -104,4 +104,18 @@ export async function updateProject(id: number, input: UpdateProjectInput) {
 
   return updated;
 }
-// export async function deleteProject(id: number) {}
+
+export async function deleteProject(id: number) {
+  const project = await getProjectById(id);
+
+  if (!project) {
+    throw new Error("Projeto não encontrado");
+  }
+
+  const [deleted] = await db
+    .delete(projetos)
+    .where(eq(projetos.id, id))
+    .returning();
+
+  return deleted;
+}
