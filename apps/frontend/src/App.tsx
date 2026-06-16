@@ -24,14 +24,24 @@ export default function App() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!loginEmail || !loginSenha) {
-      alert("Preencha todos os campos");
+    const usuarioSalvo = localStorage.getItem("usuario");
+
+    console.log("Encontrado:", usuarioSalvo);
+
+    if (!usuarioSalvo) {
+      alert("Usuário não cadastrado");
+
       return;
     }
 
-    navigate("/dashboard");
-  };
+    const usuario = JSON.parse(usuarioSalvo);
 
+    if (usuario.email === loginEmail && usuario.senha === loginSenha) {
+      navigate(`/team/${usuario.teamId}`);
+    } else {
+      alert("Dados incorretos");
+    }
+  };
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -40,9 +50,20 @@ export default function App() {
       return;
     }
 
-    navigate("/dashboard");
-  };
+    const usuario = {
+      id: Date.now(),
+      nome,
+      email,
+      senha,
+      teamId: codigoEquipe.toUpperCase(),
+    };
 
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    console.log("Usuário salvo:", usuario);
+
+    navigate(`/team/${usuario.teamId}`);
+  };
   return (
     <div className="container">
       <video autoPlay loop muted playsInline className="background-video">
