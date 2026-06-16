@@ -3,7 +3,6 @@ import { Router } from "express";
 import {
   listUsers,
   getUserById,
-  createUser,
 } from "../services/users.service.js";
 
 const router = Router();
@@ -21,12 +20,6 @@ router.get("/:id", async (req, res) => {
   }
 
   res.json(user);
-});
-
-router.post("/", async (req, res) => {
-  const user = await createUser(req.body);
-
-  res.status(201).json(user);
 });
 
 export default router;
