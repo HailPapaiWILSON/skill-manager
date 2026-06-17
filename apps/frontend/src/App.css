@@ -15,29 +15,13 @@ html, body, #root {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-}
 
-.background-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -12;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: -5;
+  /* NOVO FUNDO LIMPO */
+  background: #F1F5F9;
 }
 
 .content {
-  position: relative;
-  z-index: 1;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,19 +30,20 @@ html, body, #root {
 /* CARD */
 .card {
   position: absolute;
-  width: 420px; /* antes 380px, maior e proporcional */
-  padding: 45px; /* antes 35px */
-  border-radius: 24px; /* antes 20px */
-  backdrop-filter: blur(3px);
-  background: rgba(255, 255, 255, 0.08);
-  border: none;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+  width: 420px;
+  padding: 45px;
+  border-radius: 24px;
+
+  background: #F3F4F6;
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+
   transition: all 0.6s ease;
   text-align: center;
-
 }
 
-/* ANIMAÇÕES DE ENTRADA E SAÍDA */
+/* ANIMAÇÕES */
 .show {
   opacity: 1;
   transform: translateX(0) scale(1);
@@ -73,33 +58,36 @@ html, body, #root {
 
 /* TEXTOS */
 h2 {
-  color: white;
-  margin-bottom: 15px; /* antes 10px */
-  font-size: 26px; /* ligeiramente maior */
+  color: #0f172a;
+  margin-bottom: 15px;
+  font-size: 26px;
 }
 
 .subtitle {
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 25px; /* antes 20px */
+  color: rgba(15, 23, 42, 0.65);
+  margin-bottom: 25px;
   font-size: 16px;
 }
 
 /* INPUTS */
 input {
   width: 100%;
-  padding: 16px; /* antes 14px */
-  margin-bottom: 18px; /* antes 15px */
-  border: none;
-  border-radius: 14px; /* antes 12px */
-  background: rgba(255,255,255,0.15);
-  color: rgb(167, 165, 165);
+  padding: 16px;
+  margin-bottom: 18px;
+
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 14px;
+
+  background: #ffffff;
+  color: #0f172a;
+
   outline: none;
   font-size: 15px;
   transition: 0.3s;
 }
 
 input::placeholder {
-  color: rgb(223, 215, 215);
+  color: rgba(15, 23, 42, 0.45);
 }
 
 input:focus {
@@ -109,12 +97,14 @@ input:focus {
 /* BOTÕES */
 button {
   width: 100%;
-  padding: 16px; /* antes 14px */
+  padding: 16px;
   border: none;
-  border-radius: 14px; /* antes 12px */
+  border-radius: 14px;
+
   color: white;
   font-weight: bold;
   font-size: 16px;
+
   cursor: pointer;
   transition: 0.3s;
 }
@@ -133,13 +123,13 @@ button:not(.eye-button):hover {
 
 /* SWITCH LINK */
 .switch {
-  margin-top: 18px; /* antes 15px */
-  color: rgba(231, 231, 231, 0.7);
-  font-size: 15px; /* antes 14px */
+  margin-top: 18px;
+  color: rgba(15, 23, 42, 0.6);
+  font-size: 15px;
 }
 
 .switch span {
-  color: #60a5fa;
+  color: #2563eb;
   cursor: pointer;
   font-weight: bold;
 }
@@ -148,6 +138,7 @@ button:not(.eye-button):hover {
   text-decoration: underline;
 }
 
+/* PASSWORD */
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -156,44 +147,37 @@ button:not(.eye-button):hover {
 .password-wrapper input {
   width: 100%;
   height: 48px;
-  padding: 0 16px 0 16px;
+  padding: 0 16px;
   border-radius: 14px;
-  border: none;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  outline: none;
+
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: #ffffff;
+  color: #0f172a;
+
   font-size: 15px;
-  display: block;
 }
 
-.password-wrapper input::placeholder {
-  color: rgba(215, 206, 206, 0.8);
-}
-
+/* EYE BUTTON */
 .eye-button {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
+
   width: 24px;
   height: 24px;
   background: transparent;
   border: none;
-  padding: 0;
+
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
 }
-
 
 .eye-button svg {
   width: 20px;
   height: 20px;
-
-  display: block;
-
   fill: none !important;
-  stroke: white !important; 
+  stroke: #0f172a !important;
 }
