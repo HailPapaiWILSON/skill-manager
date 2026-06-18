@@ -9,22 +9,22 @@ import {
   normalizarCodigo,
 } from "../utils/string.js";
 
-export type InputCadastro = {
+export type EntradaCadastro = {
   nome: string;
   email: string;
   senha: string;
   codigoIngresso: string;
 };
 
-export type InputLogin = {
+export type EntradaLogin = {
   email: string;
   senha: string;
 };
 
-export async function cadastrar(input: InputCadastro) {
-  const nome = normalizarTexto(input.nome);
-  const email = normalizarEmail(input.email);
-  const codigoIngresso = normalizarCodigo(input.codigoIngresso);
+export async function cadastrar(entrada: EntradaCadastro) {
+  const nome = normalizarTexto(entrada.nome);
+  const email = normalizarEmail(entrada.email);
+  const codigoIngresso = normalizarCodigo(entrada.codigoIngresso);
 
   const equipe = await db.query.equipes.findFirst({
     where: eq(equipes.codigoIngresso, codigoIngresso),
@@ -42,7 +42,7 @@ export async function cadastrar(input: InputCadastro) {
     throw new Error("Email ja cadastrado");
   }
 
-  const senhaHash = await bcrypt.hash(input.senha, 10);
+  const senhaHash = await bcrypt.hash(entrada.senha, 10);
 
   const [usuario] = await db
     .insert(usuarios)
@@ -57,8 +57,8 @@ export async function cadastrar(input: InputCadastro) {
   return usuario;
 }
 
-export async function login(input: InputLogin) {
-  const email = normalizarEmail(input.email);
+export async function login(entrada: EntradaLogin) {
+  const email = normalizarEmail(entrada.email);
 
   const usuario = await db.query.usuarios.findFirst({
     where: eq(usuarios.email, email),
@@ -68,7 +68,7 @@ export async function login(input: InputLogin) {
     throw new Error("Credenciais invalidas");
   }
 
-  const senhaValida = await bcrypt.compare(input.senha, usuario.senhaHash);
+  const senhaValida = await bcrypt.compare(entrada.senha, usuario.senhaHash);
 
   if (!senhaValida) {
     throw new Error("Credenciais Invalidas");

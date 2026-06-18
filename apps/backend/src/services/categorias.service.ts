@@ -2,53 +2,54 @@ import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { categoriasSkills } from "../db/schema.js";
-import { normalizeText } from "../utils/string.js";
+import { normalizarTexto } from "../utils/string.js";
 
-type CreateCategoryInput = {
+type EntradaCriarCategoria = {
   nome: string;
 };
 
-type UpdateCategoryInput = {
+type EntradaAtualizarCategoria = {
   nome?: string;
 };
 
-export async function listCategories() {
+export async function listarCategorias() {
   return await db.query.categoriasSkills.findMany();
 }
 
-export async function getCategoryById(id: number) {
+export async function obterCategoriaPorId(id: number) {
   return await db.query.categoriasSkills.findFirst({
     where: eq(categoriasSkills.id, id),
   });
 }
 
-export async function createCategory(input: CreateCategoryInput) {
-  const [category] = await db
+export async function criarCategoria(entrada: EntradaCriarCategoria) {
+  const [categoria] = await db
     .insert(categoriasSkills)
-    .values({ nome: input.nome })
+    .values({ nome: entrada.nome })
     .returning();
 
-  return category;
+  return categoria;
 }
 
-export async function updateCategory(id: number, input: UpdateCategoryInput) {
-  const data: Partial<typeof categoriasSkills.$inferInsert> = {};
+export async function atualizarCategoria(
+  id: number,
+  entrada: EntradaAtualizarCategoria,
+) {
+  const dados: Partial<typeof categoriasSkills.$inferInsert> = {};
 
-  if (input.nome !== undefined) {
-    data.nome = normalizeText(input.nome);
+  if (entrada.nome !== undefined) {
+    dados.nome = normalizarTexto(entrada.nome);
   }
 
-  const [category] = await db
+  const [categoria] = await db
     .update(categoriasSkills)
-    .set(data)
+    .set(dados)
     .where(eq(categoriasSkills.id, id))
     .returning();
 
-  return category;
+  return categoria;
 }
 
-export async function deleteCategory(id: number) {
-  await db
-    .delete(categoriasSkills)
-    .where(eq(categoriasSkills.id, id));
+export async function deletarCategoria(id: number) {
+  await db.delete(categoriasSkills).where(eq(categoriasSkills.id, id));
 }
