@@ -59,6 +59,26 @@ export async function createProjectSkill(input: CreateProjectSkillInput) {
       skillId: input.skillId,
     })
     .returning();
-  
+
   return relation;
+}
+
+export async function ProjectSkill(projectId: number, skillId: number) {
+  const relation = await getProjectSkill(projectId, skillId);
+
+  if (!relation) {
+    throw new Error("Relação não encontrada");
+  }
+
+  const [deleted] = await db
+    .delete(skillsProjeto)
+    .where(
+      and(
+        eq(skillsProjeto.projetoId, projectId),
+        eq(skillsProjeto.skillId, skillId),
+      ),
+    )
+    .returning();
+
+  return deleted;
 }
