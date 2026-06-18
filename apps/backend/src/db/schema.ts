@@ -111,12 +111,12 @@ export const skillsCategoriaIdx = index("skills_categoria_idx").on(
 
 // RELAÇOES
 
-export const equipesRelations = relations(equipes, ({ many }) => ({
+export const equipesRelacoes = relations(equipes, ({ many }) => ({
   usuarios: many(usuarios),
   projetos: many(projetos),
 }));
 
-export const usuariosRelations = relations(usuarios, ({ one, many }) => ({
+export const usuariosRelacoes = relations(usuarios, ({ one, many }) => ({
   equipe: one(equipes, {
     fields: [usuarios.equipeId],
     references: [equipes.id],
@@ -124,14 +124,14 @@ export const usuariosRelations = relations(usuarios, ({ one, many }) => ({
   skills: many(skillsUsuarios),
 }));
 
-export const categoriasSkillsRelations = relations(
+export const categoriasSkillsRelacoes = relations(
   categoriasSkills,
   ({ many }) => ({
     skills: many(skills),
   }),
 );
 
-export const skillsRelations = relations(skills, ({ one, many }) => ({
+export const skillsRelacoes = relations(skills, ({ one, many }) => ({
   categoria: one(categoriasSkills, {
     fields: [skills.categoriaId],
     references: [categoriasSkills.id],
@@ -140,7 +140,7 @@ export const skillsRelations = relations(skills, ({ one, many }) => ({
   projetos: many(skillsProjeto),
 }));
 
-export const skillsUsuariosRelations = relations(skillsUsuarios, ({ one }) => ({
+export const skillsUsuariosRelacoes = relations(skillsUsuarios, ({ one }) => ({
   usuario: one(usuarios, {
     fields: [skillsUsuarios.usuarioId],
     references: [usuarios.id],
@@ -151,7 +151,7 @@ export const skillsUsuariosRelations = relations(skillsUsuarios, ({ one }) => ({
   }),
 }));
 
-export const projetosRelations = relations(projetos, ({ one, many }) => ({
+export const projetosRelacoes = relations(projetos, ({ one, many }) => ({
   equipe: one(equipes, {
     fields: [projetos.equipeId],
     references: [equipes.id],
@@ -159,7 +159,7 @@ export const projetosRelations = relations(projetos, ({ one, many }) => ({
   skills: many(skillsProjeto),
 }));
 
-export const skillsProjetoRelations = relations(skillsProjeto, ({ one }) => ({
+export const skillsProjetoRelacoes = relations(skillsProjeto, ({ one }) => ({
   projeto: one(projetos, {
     fields: [skillsProjeto.projetoId],
     references: [projetos.id],

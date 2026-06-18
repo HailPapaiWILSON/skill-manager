@@ -4,27 +4,27 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { equipes, usuarios } from "../db/schema.js";
 import {
-  normalizeEmail,
-  normalizeText,
-  normalizeCode,
+  normalizarTexto,
+  normalizarEmail,
+  normalizarCodigo,
 } from "../utils/string.js";
 
-export type RegisterInput = {
+export type InputCadastro = {
   nome: string;
   email: string;
   senha: string;
   codigoIngresso: string;
 };
 
-export type LoginInput = {
+export type InputLogin = {
   email: string;
   senha: string;
 };
 
-export async function register(input: RegisterInput) {
-  const nome = normalizeText(input.nome);
-  const email = normalizeEmail(input.email);
-  const codigoIngresso = normalizeCode(input.codigoIngresso);
+export async function cadastrar(input: InputCadastro) {
+  const nome = normalizarTexto(input.nome);
+  const email = normalizarEmail(input.email);
+  const codigoIngresso = normalizarCodigo(input.codigoIngresso);
 
   const equipe = await db.query.equipes.findFirst({
     where: eq(equipes.codigoIngresso, codigoIngresso),
@@ -34,45 +34,45 @@ export async function register(input: RegisterInput) {
     throw new Error("Codigo de ingresso invalido");
   }
 
-  const existingUser = await db.query.usuarios.findFirst({
+  const usuarioExistente = await db.query.usuarios.findFirst({
     where: eq(usuarios.email, email),
   });
 
-  if (existingUser) {
+  if (usuarioExistente) {
     throw new Error("Email ja cadastrado");
   }
 
   const senhaHash = await bcrypt.hash(input.senha, 10);
 
-  const [user] = await db
+  const [usuario] = await db
     .insert(usuarios)
     .values({
       nome,
       email,
       senhaHash,
       equipeId: equipe.id,
-      role: "user",
+      funcao: "usuario",
     })
     .returning();
-  return user;
+  return usuario;
 }
 
-export async function login(input: LoginInput) {
-  const email = normalizeEmail(input.email);
+export async function login(input: InputLogin) {
+  const email = normalizarEmail(input.email);
 
-  const user = await db.query.usuarios.findFirst({
+  const usuario = await db.query.usuarios.findFirst({
     where: eq(usuarios.email, email),
   });
 
-  if (!user) {
+  if (!usuario) {
     throw new Error("Credenciais invalidas");
   }
 
-  const senhaValida = await bcrypt.compare(input.senha, user.senhaHash);
+  const senhaValida = await bcrypt.compare(input.senha, usuario.senhaHash);
 
   if (!senhaValida) {
-    throw new Error("Credenciasi Invalidas");
+    throw new Error("Credenciais Invalidas");
   }
 
-  return user;
+  return usuario;
 }
