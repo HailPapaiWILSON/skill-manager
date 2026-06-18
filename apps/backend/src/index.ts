@@ -6,7 +6,8 @@ import categoriesRouter from "./routes/categories.routes.js"
 import skillsRouter from "./routes/skills.routes.js";
 import projectsRoutes from "./routes/projects.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import userSkillsRoutes from "./routes/skills-users.routes.js"
+import userSkillsRoutes from "./routes/skills-user.routes.js"
+import projectSkillRoutes from "./routes/skills-projects.routes.js"
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use("/skills", skillsRouter);
 app.use("/projetos", projectsRoutes);
 app.use("/auth", authRoutes);
 app.use("/user-skill", userSkillsRoutes);
+app.use("/project-skills", projectSkillRoutes);
 
 app.listen(3000);

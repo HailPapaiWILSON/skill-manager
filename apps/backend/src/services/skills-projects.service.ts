@@ -63,7 +63,7 @@ export async function createProjectSkill(input: CreateProjectSkillInput) {
   return relation;
 }
 
-export async function ProjectSkill(projectId: number, skillId: number) {
+export async function deleteProjectSkill(projectId: number, skillId: number) {
   const relation = await getProjectSkill(projectId, skillId);
 
   if (!relation) {
