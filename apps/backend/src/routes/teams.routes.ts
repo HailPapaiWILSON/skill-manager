@@ -31,7 +31,7 @@ router.post("/", async (req: any, res: any) => {
   res.status(201).json(team);
 });
 
-router.put("/:id", async (res: any, req: any) => {
+router.put("/:id", async (req: any, res: any) => {
   const team = await updateTeam(Number(req.params.id), req.body);
 
   res.json(team);

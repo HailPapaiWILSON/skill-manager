@@ -8,7 +8,7 @@ export type CreateProjectSkillInput = {
 };
 
 export async function listProjectSkills() {
-  return db.query.skillsProjeto.findFirst({
+  return db.query.skillsProjeto.findMany({
     with: {
       projeto: true,
       skill: true,
@@ -17,7 +17,7 @@ export async function listProjectSkills() {
 }
 
 export async function getProjectSkill(projetoId: number, skillId: number) {
-  return db.query.skillsProjeto.findMany({
+  return db.query.skillsProjeto.findFirst({
     where: and(
       eq(skillsProjeto.projetoId, projetoId),
       eq(skillsProjeto.skillId, skillId),
