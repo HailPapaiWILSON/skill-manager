@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { projetos, equipes } from "../db/schema.js";
+import { projetos, equipes, skillsProjeto } from "../db/schema.js";
 import { normalizarTexto } from "../utils/string.js";
 
 export type StatusProjeto =
@@ -115,6 +115,14 @@ export async function deletarProjeto(id: number) {
 
   if (!projeto) {
     throw new Error("Projeto não encontrado");
+  }
+
+  const possuiSkills = await db.query.skillsProjeto.findFirst({
+    where: eq(skillsProjeto.projetoId, id),
+  });
+
+  if (possuiSkills) {
+    throw new Error("Não é possível deletar um projeto associado a skills");
   }
 
   const [deletado] = await db

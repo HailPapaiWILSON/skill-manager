@@ -1,9 +1,13 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { equipes, usuarios } from "../db/schema.js";
+import { equipes, projetos, usuarios } from "../db/schema.js";
 
-import { normalizarTexto, normalizarCodigo, gerarCodigo } from "../utils/string.js";
+import {
+  normalizarTexto,
+  normalizarCodigo,
+  gerarCodigo,
+} from "../utils/string.js";
 
 type CriarEquipeInput = {
   nome: string;
@@ -65,7 +69,25 @@ export async function atualizarEquipe(id: number, input: AtualizarEquipeInput) {
 }
 
 export async function deletarEquipe(id: number) {
-  await db
-    .delete(equipes)
-    .where(eq(equipes.id, id));
+  const possuiUsuarios = await db.query.usuarios.findFirst({
+    where: eq(usuarios.equipeId, id),
+  });
+
+  if (possuiUsuarios) {
+    throw new Error(
+      "Não é possível deletar uma equipe que possui usuários vinculados",
+    );
+  }
+
+  const possuiProjetos = await db.query.projetos.findFirst({
+    where: eq(projetos.equipeId, id),
+  });
+
+  if (possuiProjetos) {
+    throw new Error(
+      "Não é possível deletar uma equipe que possui projetos vinculados",
+    );
+  }
+
+  await db.delete(equipes).where(eq(equipes.id, id));
 }

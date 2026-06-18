@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { categoriasSkills } from "../db/schema.js";
+import { categoriasSkills, skills } from "../db/schema.js";
 import { normalizarTexto } from "../utils/string.js";
 
 type CriarCategoriaInput = {
@@ -51,5 +51,15 @@ export async function atualizarCategoria(
 }
 
 export async function deletarCategoria(id: number) {
+  const vinculadASkill = await db.query.skills.findFirst({
+    where: eq(skills.categoriaId, id),
+  });
+
+  if (vinculadASkill) {
+    throw new Error(
+      "Não é possível deletar uma categoria associada a uma ou mais skills",
+    );
+  }
+
   await db.delete(categoriasSkills).where(eq(categoriasSkills.id, id));
 }

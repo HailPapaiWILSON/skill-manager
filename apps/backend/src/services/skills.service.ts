@@ -1,7 +1,12 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { categoriasSkills, skills } from "../db/schema.js";
+import {
+  categoriasSkills,
+  skills,
+  skillsProjeto,
+  skillsUsuarios,
+} from "../db/schema.js";
 import { normalizarTexto } from "../utils/string.js";
 
 export type CriarSkillInput = {
@@ -83,6 +88,22 @@ export async function deletarSkill(id: number) {
 
   if (!skill) {
     throw new Error("Skill não encontrada");
+  }
+
+  const vinculadAUsuario = await db.query.skillsUsuarios.findFirst({
+    where: eq(skillsUsuarios.skillId, id),
+  });
+
+  if (vinculadAUsuario) {
+    throw new Error("Não é possível deletar uma skill associada a usuários");
+  }
+
+  const vinculadAProjeto = await db.query.skillsProjeto.findFirst({
+    where: eq(skillsProjeto.skillId, id),
+  });
+
+  if (vinculadAProjeto) {
+    throw new Error("Não é possível deletar uma skill associada a projetos");
   }
 
   const [deletado] = await db
