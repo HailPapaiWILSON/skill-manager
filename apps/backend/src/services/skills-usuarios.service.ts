@@ -5,19 +5,19 @@ import { usuarios, skills, skillsUsuarios } from "../db/schema.js";
 
 export type NivelSkill = "junior" | "pleno" | "senior";
 
-export type CreateUserSkillInput = {
+export type CriarSkillUsuarioInput = {
   usuarioId: number;
   skillId: number;
   nivel: NivelSkill;
   anosExperiencia?: number;
 };
 
-export type UpdateUserSkillInput = {
+export type AtualizarSkillUsuarioInput = {
   nivel?: NivelSkill;
   anosExperiencia?: number;
 };
 
-export async function listUserSkills() {
+export async function listarSkillsUsuario() {
   return db.query.skillsUsuarios.findMany({
     with: {
       usuario: true,
@@ -26,7 +26,7 @@ export async function listUserSkills() {
   });
 }
 
-export async function getUserSkill(usuarioId: number, skillId: number) {
+export async function obterSkillUsuario(usuarioId: number, skillId: number) {
   return db.query.skillsUsuarios.findFirst({
     where: and(
       eq(skillsUsuarios.usuarioId, usuarioId),
@@ -39,7 +39,7 @@ export async function getUserSkill(usuarioId: number, skillId: number) {
   });
 }
 
-export async function createUserSkill(input: CreateUserSkillInput) {
+export async function criarSkillUsuario(input: CriarSkillUsuarioInput) {
   const usuario = await db.query.usuarios.findFirst({
     where: eq(usuarios.id, input.usuarioId),
   });
@@ -56,13 +56,13 @@ export async function createUserSkill(input: CreateUserSkillInput) {
     throw new Error("Skill nao encontrada");
   }
 
-  const existing = await getUserSkill(input.usuarioId, input.skillId);
+  const existente = await obterSkillUsuario(input.usuarioId, input.skillId);
 
-  if (existing) {
+  if (existente) {
     throw new Error("Usuario ja possui essa skill");
   }
 
-  const [userSkill] = await db
+  const [skillUsuario] = await db
     .insert(skillsUsuarios)
     .values({
       usuarioId: input.usuarioId,
@@ -72,21 +72,21 @@ export async function createUserSkill(input: CreateUserSkillInput) {
     })
     .returning();
 
-  return userSkill;
+  return skillUsuario;
 }
 
-export async function updateUserSkill(
+export async function atualizarSkillUsuario(
   usuarioId: number,
   skillId: number,
-  input: UpdateUserSkillInput,
+  input: AtualizarSkillUsuarioInput,
 ) {
-  const relation = await getUserSkill(usuarioId, skillId);
+  const relacao = await obterSkillUsuario(usuarioId, skillId);
 
-  if (!relation) {
+  if (!relacao) {
     throw new Error("Relaçao encontrada");
   }
 
-  const [updated] = await db
+  const [atualizado] = await db
     .update(skillsUsuarios)
     .set({
       ...(input.nivel && {
@@ -105,17 +105,17 @@ export async function updateUserSkill(
     )
     .returning();
 
-  return updated;
+  return atualizado;
 }
 
-export async function deleteUserSkill(usuarioId: number, skillId: number) {
-  const relation = await getUserSkill(usuarioId, skillId);
+export async function deletarSkillUsuario(usuarioId: number, skillId: number) {
+  const relacao = await obterSkillUsuario(usuarioId, skillId);
 
-  if (!relation) {
+  if (!relacao) {
     throw new Error("Relaçao não encontrada");
   }
 
-  const [deleted] = await db
+  const [deletado] = await db
     .delete(skillsUsuarios)
     .where(
       and(
@@ -125,6 +125,6 @@ export async function deleteUserSkill(usuarioId: number, skillId: number) {
     )
     .returning();
 
-  return deleted;
+  return deletado;
 }
   

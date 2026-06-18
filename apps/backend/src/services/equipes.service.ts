@@ -3,36 +3,36 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { equipes, usuarios } from "../db/schema.js";
 
-import { generateCode, normalizeCode, normalizeText } from "../utils/string.js";
+import { normalizarTexto, normalizarCodigo, gerarCodigo } from "../utils/string.js";
 
-type CreateTeamInput = {
+type CriarEquipeInput = {
   nome: string;
   descricao?: string;
   codigoIngresso?: string;
 };
 
-type UpdateTeamInput = {
+type AtualizarEquipeInput = {
   nome?: string;
   descricao?: string;
 };
 
-export async function listTeams() {
+export async function listarEquipes() {
   return await db.query.equipes.findMany();
 }
 
-export async function getTeamById(id: number) {
+export async function obterEquipePorId(id: number) {
   return await db.query.equipes.findMany({
     where: eq(equipes.id, id),
   });
 }
 
-export async function createTeam(input: CreateTeamInput) {
-  const nome = normalizeText(input.nome);
+export async function criarEquipe(input: CriarEquipeInput) {
+  const nome = normalizarTexto(input.nome);
   const codigoIngresso = input.codigoIngresso
-    ? normalizeCode(input.codigoIngresso)
-    : generateCode();
+    ? normalizarCodigo(input.codigoIngresso)
+    : gerarCodigo();
 
-  const [team] = await db
+  const [equipe] = await db
     .insert(equipes)
     .values({
       nome,
@@ -41,30 +41,30 @@ export async function createTeam(input: CreateTeamInput) {
     })
     .returning();
 
-  return team;
+  return equipe;
 }
 
-export async function updateTeam(id: number, input: UpdateTeamInput) {
-  const data: Partial<typeof equipes.$inferInsert> = {};
+export async function atualizarEquipe(id: number, input: AtualizarEquipeInput) {
+  const dados: Partial<typeof equipes.$inferInsert> = {};
 
   if (input.nome !== undefined) {
-    data.nome = normalizeText(input.nome);
+    dados.nome = normalizarTexto(input.nome);
   }
 
   if (input.descricao !== undefined) {
-    data.descricao = input.descricao;
+    dados.descricao = input.descricao;
   }
 
-  const [team] = await db
+  const [equipe] = await db
     .update(equipes)
-    .set(data)
+    .set(dados)
     .where(eq(equipes.id, id))
     .returning();
 
-  return team;
+  return equipe;
 }
 
-export async function deleteTeam(id: number) {
+export async function deletarEquipe(id: number) {
   await db
     .delete(equipes)
     .where(eq(equipes.id, id));

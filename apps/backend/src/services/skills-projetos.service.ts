@@ -2,12 +2,12 @@ import { and, eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { projetos, skills, skillsProjeto } from "../db/schema.js";
 
-export type CreateProjectSkillInput = {
+export type CriarSkillProjetoInput = {
   projetoId: number;
   skillId: number;
 };
 
-export async function listProjectSkills() {
+export async function listarSkillsProjeto() {
   return db.query.skillsProjeto.findMany({
     with: {
       projeto: true,
@@ -16,7 +16,7 @@ export async function listProjectSkills() {
   });
 }
 
-export async function getProjectSkill(projetoId: number, skillId: number) {
+export async function obterSkillProjeto(projetoId: number, skillId: number) {
   return db.query.skillsProjeto.findFirst({
     where: and(
       eq(skillsProjeto.projetoId, projetoId),
@@ -29,12 +29,12 @@ export async function getProjectSkill(projetoId: number, skillId: number) {
   });
 }
 
-export async function createProjectSkill(input: CreateProjectSkillInput) {
-  const project = await db.query.projetos.findFirst({
+export async function createProjcriarSkillProjetoectSkill(input: CriarSkillProjetoInput) {
+  const projeto = await db.query.projetos.findFirst({
     where: eq(projetos.id, input.projetoId),
   });
 
-  if (!project) {
+  if (!projeto) {
     throw new Error("Projeto nao encontrado");
   }
 
@@ -46,13 +46,13 @@ export async function createProjectSkill(input: CreateProjectSkillInput) {
     throw new Error("Skill nao encontrada");
   }
 
-  const existing = await getProjectSkill(input.projetoId, input.skillId);
+  const existente = await obterSkillProjeto(input.projetoId, input.skillId);
 
-  if (existing) {
+  if (existente) {
     throw new Error("Projeto ja possui essa skill");
   }
 
-  const [relation] = await db
+  const [relacao] = await db
     .insert(skillsProjeto)
     .values({
       projetoId: input.projetoId,
@@ -60,25 +60,25 @@ export async function createProjectSkill(input: CreateProjectSkillInput) {
     })
     .returning();
 
-  return relation;
+  return relacao;
 }
 
-export async function deleteProjectSkill(projectId: number, skillId: number) {
-  const relation = await getProjectSkill(projectId, skillId);
+export async function deletarSkillProjeto(projetoId: number, skillId: number) {
+  const relacao = await obterSkillProjeto(projetoId, skillId);
 
-  if (!relation) {
+  if (!relacao) {
     throw new Error("Relação não encontrada");
   }
 
-  const [deleted] = await db
+  const [deletado] = await db
     .delete(skillsProjeto)
     .where(
       and(
-        eq(skillsProjeto.projetoId, projectId),
+        eq(skillsProjeto.projetoId, projetoId),
         eq(skillsProjeto.skillId, skillId),
       ),
     )
     .returning();
 
-  return deleted;
+  return deletado;
 }

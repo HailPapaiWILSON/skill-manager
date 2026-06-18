@@ -4,11 +4,11 @@ import { db } from "../db/index.js";
 import { categoriasSkills } from "../db/schema.js";
 import { normalizarTexto } from "../utils/string.js";
 
-type EntradaCriarCategoria = {
+type CriarCategoriaInput = {
   nome: string;
 };
 
-type EntradaAtualizarCategoria = {
+type AtualizarCategoriaInput = {
   nome?: string;
 };
 
@@ -22,10 +22,10 @@ export async function obterCategoriaPorId(id: number) {
   });
 }
 
-export async function criarCategoria(entrada: EntradaCriarCategoria) {
+export async function criarCategoria(input: CriarCategoriaInput) {
   const [categoria] = await db
     .insert(categoriasSkills)
-    .values({ nome: entrada.nome })
+    .values({ nome: input.nome })
     .returning();
 
   return categoria;
@@ -33,12 +33,12 @@ export async function criarCategoria(entrada: EntradaCriarCategoria) {
 
 export async function atualizarCategoria(
   id: number,
-  entrada: EntradaAtualizarCategoria,
+  input: AtualizarCategoriaInput,
 ) {
   const dados: Partial<typeof categoriasSkills.$inferInsert> = {};
 
-  if (entrada.nome !== undefined) {
-    dados.nome = normalizarTexto(entrada.nome);
+  if (input.nome !== undefined) {
+    dados.nome = normalizarTexto(input.nome);
   }
 
   const [categoria] = await db

@@ -2,18 +2,18 @@ import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { categoriasSkills, skills } from "../db/schema.js";
-import { normalizeText } from "../utils/string.js";
+import { normalizarTexto } from "../utils/string.js";
 
-export type CreateSkillInput = {
+export type CriarSkillInput = {
   nome: string;
   categoriaId: number;
 };
-export type UpdateSkillInput = {
+export type AtualizarSkillInput = {
   nome?: string;
   categoriaId?: number;
 };
 
-export async function listSkills() {
+export async function listarSkills() {
   return db.query.skills.findMany({
     with: {
       categoria: true,
@@ -21,7 +21,7 @@ export async function listSkills() {
   });
 }
 
-export async function getSkillById(id: number) {
+export async function obterSkillPorId(id: number) {
   return await db.query.skills.findFirst({
     where: eq(skills.id, id),
     with: {
@@ -30,8 +30,8 @@ export async function getSkillById(id: number) {
   });
 }
 
-export async function createSkill(input: CreateSkillInput) {
-  const nome = normalizeText(input.nome);
+export async function criarSkill(input: CriarSkillInput) {
+  const nome = normalizarTexto(input.nome);
 
   const categoria = await db.query.categoriasSkills.findFirst({
     where: eq(categoriasSkills.id, input.categoriaId),
@@ -49,8 +49,8 @@ export async function createSkill(input: CreateSkillInput) {
   return skill;
 }
 
-export async function updateSkill(id: number, input: UpdateSkillInput) {
-  const skill = await getSkillById(id);
+export async function atualizarSkill(id: number, input: AtualizarSkillInput) {
+  const skill = await obterSkillPorId(id);
 
   if (!skill) {
     throw new Error("Skill não encontrada");
@@ -69,7 +69,7 @@ export async function updateSkill(id: number, input: UpdateSkillInput) {
   const [updated] = await db
     .update(skills)
     .set({
-      ...(input.nome && { nome: normalizeText(input.nome) }),
+      ...(input.nome && { nome: normalizarTexto(input.nome) }),
       ...(input.categoriaId && { categoriaId: input.categoriaId }),
     })
     .where(eq(skills.id, id))
@@ -79,16 +79,16 @@ export async function updateSkill(id: number, input: UpdateSkillInput) {
 }
 
 export async function deleteSkill(id: number) {
-  const skill = await getSkillById(id);
+  const skill = await obterSkillPorId(id);
 
   if (!skill) {
     throw new Error("Skill não encontrada");
   }
 
-  const [deleted] = await db
+  const [deletado] = await db
     .delete(skills)
     .where(eq(skills.id, id))
     .returning();
 
-  return deleted;
+  return deletado;
 }
