@@ -24,9 +24,9 @@ export const usuarios = sqliteTable("usuarios", {
   email: text("email").notNull().unique(),
   senhaHash: text("senha_hash").notNull(),
   bio: text("bio"),
-  role: text("role", { enum: ["user", "admin"] as const })
+  funcao: text("funcao", { enum: ["usuario", "administrador"] as const })
     .notNull()
-    .default("user"),
+    .default("usuario"),
   equipeId: integer("equipe_id")
     .notNull()
     .references(() => equipes.id),
