@@ -1,27 +1,27 @@
 import { Router } from "express";
 
 import {
-  listProjectSkills,
-  createProjectSkill,
-  deleteProjectSkill,
-} from "../services/skills-projects.service.js";
+  listarSkillsProjeto,
+  criarSkillProjeto,
+  deletarSkillProjeto,
+} from "../services/skills-projetos.service.js";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const data = await listProjectSkills();
+  const dados = await listarSkillsProjeto();
 
-  res.json(data);
+  res.json(dados);
 });
 
 router.post("/", async (req, res) => {
-  const relation = await createProjectSkill(req.body);
+  const relacao = await criarSkillProjeto(req.body);
 
-  res.status(201).json(relation);
+  res.status(201).json(relacao);
 });
 
 router.delete("/:projetoId/:skillId", async (req, res) => {
-  await deleteProjectSkill(
+  await deletarSkillProjeto(
     Number(req.params.projetoId),
     Number(req.params.skillId),
   );

@@ -1,19 +1,19 @@
 import { Router } from "express";
 
-import { register, login } from "../services/auth.service.js";
+import { cadastrar, login } from "../services/autenticacao.service.js";
 
 const router = Router();
 
-router.post("/register", async (req, res) => {
-  const user = await register(req.body);
+router.post("/cadastrar", async (req, res) => {
+  const usuario = await cadastrar(req.body);
 
-  res.status(201).json(user);
+  res.status(201).json(usuario);
 });
 
 router.post("/login", async (req, res) => {
-  const user = await login(req.body);
+  const usuario = await login(req.body);
 
-  res.json(user);
+  res.json(usuario);
 });
 
 export default router;

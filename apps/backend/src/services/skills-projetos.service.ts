@@ -29,7 +29,7 @@ export async function obterSkillProjeto(projetoId: number, skillId: number) {
   });
 }
 
-export async function createProjcriarSkillProjetoectSkill(input: CriarSkillProjetoInput) {
+export async function criarSkillProjeto(input: CriarSkillProjetoInput) {
   const projeto = await db.query.projetos.findFirst({
     where: eq(projetos.id, input.projetoId),
   });

@@ -1,25 +1,25 @@
 import { Router } from "express";
 
 import {
-  listUsers,
-  getUserById,
-} from "../services/users.service.js";
+  listarUsuarios,
+  obterUsuarioPorId,
+} from "../services/usuarios.service.js";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const users = await listUsers();
-  res.json(users);
+  const usuarios = await listarUsuarios();
+  res.json(usuarios);
 });
 
 router.get("/:id", async (req, res) => {
-  const user = await getUserById(Number(req.params.id));
+  const usuario = await obterUsuarioPorId(Number(req.params.id));
 
-  if (!user) {
+  if (!usuario) {
     return res.status(404).json({ error: "Usuario nao encontrado" });
   }
 
-  res.json(user);
+  res.json(usuario);
 });
 
 export default router;

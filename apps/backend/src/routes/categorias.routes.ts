@@ -1,60 +1,60 @@
 import { Router } from "express";
 
 import {
-    listCategories,
-    getCategoryById,
-    createCategory,
-    updateCategory,
-    deleteCategory,
-} from "../services/categories.service.js";
+    listarCategorias,
+    obterCategoriaPorId,
+    criarCategoria,
+    atualizarCategoria,
+    deletarCategoria,
+} from "../services/categorias.service.js";
 
 const router = Router();
 
 
 router.get("/", async (_req, res) =>
 {
-    const categories = await listCategories();
+    const categorias = await listarCategorias();
 
-    res.json(categories);
+    res.json(categorias);
 });
 
 router.get("/:id", async (req, res) =>
 {
-    const category = await getCategoryById(
+    const categoria = await obterCategoriaPorId(
         Number(req.params.id)
     );
 
-    if (!category)
+    if (!categoria)
     {
         return res.status(404).json({
             error: "Categoria não encontrada",
         });
     }
 
-    res.json(category);
+    res.json(categoria);
 });
 
 router.post("/", async (req, res) =>
 {
-    const category = await createCategory(req.body);
+    const categoria = await criarCategoria(req.body);
 
-    res.status(201).json(category);
+    res.status(201).json(categoria);
 });
 
 router.put("/:id", async (req, res) =>
 {
-    const category = await updateCategory(
+    const categoria = await atualizarCategoria(
         Number(req.params.id),
         req.body
     );
 
-    res.json(category);
+    res.json(categoria);
 });
 
 
 router.delete("/:id", async (req, res) =>
 {
-    await deleteCategory(
+    await deletarCategoria(
         Number(req.params.id)
     );
 

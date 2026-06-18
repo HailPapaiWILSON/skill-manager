@@ -78,7 +78,7 @@ export async function atualizarSkill(id: number, input: AtualizarSkillInput) {
   return updated;
 }
 
-export async function deleteSkill(id: number) {
+export async function deletarSkill(id: number) {
   const skill = await obterSkillPorId(id);
 
   if (!skill) {

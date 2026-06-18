@@ -1,52 +1,52 @@
 import { Router } from "express";
 
 import {
-  listProjects,
-  getProjectById,
-  createProject,
-  updateProject,
-  deleteProject,
-} from "../services/projects.service.js";
+  listarProjetos,
+  obterProjetoPorId,
+  criarProjeto,
+  atualizarProjeto,
+  deletarProjeto,
+} from "../services/projetos.service.js";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const projects = await listProjects();
+  const projetos = await listarProjetos();
 
-  res.json(projects);
+  res.json(projetos);
 });
 
 router.get("/:id", async (req, res) => {
-  const project = await getProjectById(
+  const projeto = await obterProjetoPorId(
     Number(req.params.id)
   );
 
-  if (!project) {
+  if (!projeto) {
     return res.status(404).json({
       error: "Projeto não encontrado",
     });
   }
 
-  res.json(project);
+  res.json(projeto);
 });
 
 router.post("/", async (req, res) => {
-  const project = await createProject(req.body);
+  const projeto = await criarProjeto(req.body);
 
-  res.status(201).json(project);
+  res.status(201).json(projeto);
 });
 
 router.put("/:id", async (req, res) => {
-  const project = await updateProject(
+  const projeto = await atualizarProjeto(
     Number(req.params.id),
     req.body
   );
 
-  res.json(project);
+  res.json(projeto);
 });
 
 router.delete("/:id", async (req, res) => {
-  await deleteProject(Number(req.params.id));
+  await deletarProjeto(Number(req.params.id));
 
   res.sendStatus(204);
 });

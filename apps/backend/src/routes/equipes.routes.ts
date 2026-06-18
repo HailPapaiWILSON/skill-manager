@@ -1,22 +1,22 @@
 import { Router } from "express";
 
 import {
-  listTeams,
-  getTeamById,
-  createTeam,
-  updateTeam,
-  deleteTeam,
-} from "../services/teams.service.js";
+  listarEquipes,
+  obterEquipePorId,
+  criarEquipe,
+  atualizarEquipe,
+  deletarEquipe,
+} from "../services/equipes.service.js";
 
 const router = Router();
 
 router.get("/", async (_req: any, res: any) => {
-  const teams = await listTeams();
+  const teams = await listarEquipes();
   res.json(teams);
 });
 
 router.get("/:id", async (req: any, res: any) => {
-  const team = await getTeamById(Number(req.params.id));
+  const team = await obterEquipePorId(Number(req.params.id));
 
   if (!team) {
     return res.status(404).json({ error: "Equipe nao encontrado" });
@@ -26,19 +26,19 @@ router.get("/:id", async (req: any, res: any) => {
 });
 
 router.post("/", async (req: any, res: any) => {
-  const team = await createTeam(req.body);
+  const team = await criarEquipe(req.body);
 
   res.status(201).json(team);
 });
 
 router.put("/:id", async (req: any, res: any) => {
-  const team = await updateTeam(Number(req.params.id), req.body);
+  const team = await atualizarEquipe(Number(req.params.id), req.body);
 
   res.json(team);
 });
 
 router.delete("/:id", async (req: any, res: any) => {
-  await deleteTeam(Number(req.params.id));
+  await deletarEquipe(Number(req.params.id));
 
   res.sendStatus(204);
 });

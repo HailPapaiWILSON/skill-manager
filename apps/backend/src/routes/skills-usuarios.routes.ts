@@ -1,38 +1,38 @@
 import { Router } from "express";
 
 import {
-  listUserSkills,
-  createUserSkill,
-  updateUserSkill,
-  deleteUserSkill,
-} from "../services/skills-users.service.js";
+  listarSkillsUsuario,
+  criarSkillUsuario,
+  atualizarSkillUsuario,
+  deletarSkillUsuario,
+} from "../services/skills-usuarios.service.js";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const skillUser = await listUserSkills();
+  const skillUsuario = await listarSkillsUsuario();
 
-  res.json(skillUser);
+  res.json(skillUsuario);
 });
 
 router.get("/", async (req, res) => {
-  const relation = await createUserSkill(req.body);
+  const relacao = await criarSkillUsuario(req.body);
 
-  res.status(201).json(relation);
+  res.status(201).json(relacao);
 });
 
 router.put("/:usuarioId/:skillId", async (req, res) => {
-  const relation = await updateUserSkill(
+  const relacao = await atualizarSkillUsuario(
     Number(req.params.usuarioId),
     Number(req.params.skillId),
     req.body,
   );
 
-  res.json(relation);
+  res.json(relacao);
 });
 
 router.delete("/:usuarioId/:skillId", async (req, res) => {
-  await deleteUserSkill(
+  await deletarSkillUsuario(
     Number(req.params.usuarioId),
     Number(req.params.skillId),
   );
