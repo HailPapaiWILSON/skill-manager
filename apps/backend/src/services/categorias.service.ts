@@ -25,7 +25,7 @@ export async function obterCategoriaPorId(id: number) {
 export async function criarCategoria(input: CriarCategoriaInput) {
   const [categoria] = await db
     .insert(categoriasSkills)
-    .values({ nome: input.nome })
+    .values({ nome: normalizarTexto(input.nome) })
     .returning();
 
   return categoria;

@@ -30,7 +30,7 @@ export async function obterSkillUsuario(usuarioId: number, skillId: number) {
   return db.query.skillsUsuarios.findFirst({
     where: and(
       eq(skillsUsuarios.usuarioId, usuarioId),
-      eq(skillsUsuarios, skillId),
+      eq(skillsUsuarios.skillId, skillId),
     ),
     with: {
       usuario: true,
@@ -83,7 +83,7 @@ export async function atualizarSkillUsuario(
   const relacao = await obterSkillUsuario(usuarioId, skillId);
 
   if (!relacao) {
-    throw new Error("Relaçao encontrada");
+    throw new Error("Relaçao nao encontrada");
   }
 
   const [atualizado] = await db

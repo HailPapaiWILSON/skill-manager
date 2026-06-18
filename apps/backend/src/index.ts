@@ -5,7 +5,7 @@ import equipesRouter from "./routes/equipes.routes.js"
 import categoriasRouter from "./routes/categorias.routes.js"
 import skillsRouter from "./routes/skills.routes.js";
 import projetosRouter from "./routes/projetos.routes.js";
-import autenticacaoRouter from "./routes/autenticao.routes.js";
+import autenticacaoRouter from "./routes/autenticacao.routes.js";
 import skillsUsuariosRouter from "./routes/skills-usuarios.routes.js"
 import skillsProjetosRouter from "./routes/skills-projetos.routes.js"
 

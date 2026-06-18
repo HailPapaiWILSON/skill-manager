@@ -15,7 +15,7 @@ router.get("/", async (_req, res) => {
   res.json(skillUsuario);
 });
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const relacao = await criarSkillUsuario(req.body);
 
   res.status(201).json(relacao);

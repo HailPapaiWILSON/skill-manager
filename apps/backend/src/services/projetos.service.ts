@@ -61,9 +61,14 @@ export async function criarProjeto(input: CriarProjetoInput) {
       equipeId: input.equipeId,
     })
     .returning();
+
+  return projeto;
 }
 
-export async function atualizarProjeto(id: number, input: AtualizarProjetoInput) {
+export async function atualizarProjeto(
+  id: number,
+  input: AtualizarProjetoInput,
+) {
   const projeto = await obterProjetoPorId(id);
 
   if (!projeto) {
