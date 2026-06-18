@@ -1,16 +1,16 @@
-export function normalizeText(value: string): string {
+export function normalizarTexto(value: string): string {
   return value.trim().replace(/\s+/g, " ").normalize("NFKC");
 }
 
-export function normalizeEmail(value: string): string {
+export function normalizarEmail(value: string): string {
   return value.trim().toLowerCase();
 }
 
-export function normalizeCode(value: string): string {
+export function normalizarCodigo(value: string): string {
   return value.trim().toUpperCase();
 }
 
-export function generateCode(): string {
+export function gerarCodigo(): string {
   return Math.random()
     .toString(36)
     .slice(2, 8)
