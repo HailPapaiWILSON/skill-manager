@@ -28,3 +28,37 @@ export async function getProjectSkill(projetoId: number, skillId: number) {
     },
   });
 }
+
+export async function createProjectSkill(input: CreateProjectSkillInput) {
+  const project = await db.query.projetos.findFirst({
+    where: eq(projetos.id, input.projetoId),
+  });
+
+  if (!project) {
+    throw new Error("Projeto nao encontrado");
+  }
+
+  const skill = await db.query.skills.findFirst({
+    where: eq(skills.id, input.skillId),
+  });
+
+  if (!skill) {
+    throw new Error("Skill nao encontrada");
+  }
+
+  const existing = await getProjectSkill(input.projetoId, input.skillId);
+
+  if (existing) {
+    throw new Error("Projeto ja possui essa skill");
+  }
+
+  const [relation] = await db
+    .insert(skillsProjeto)
+    .values({
+      projetoId: input.projetoId,
+      skillId: input.skillId,
+    })
+    .returning();
+  
+  return relation;
+}
