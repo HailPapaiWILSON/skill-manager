@@ -25,6 +25,7 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id/bio", async (req, res) => {
   const id = Number(req.params.id);
+
   const { bio } = req.body;
 
   if (typeof bio !== "string") {
@@ -32,11 +33,13 @@ router.put("/:id/bio", async (req, res) => {
   }
 
   const usuarioExistente = await obterUsuarioPorId(id);
+
   if (!usuarioExistente) {
     return res.status(404).json({ error: "Usuario nao encontrado" });
   }
 
   const resultado = await atualizarBioUsuario(id, bio);
+  
   res.json(resultado[0] || { message: "Bio atualizada com sucesso" });
 });
 

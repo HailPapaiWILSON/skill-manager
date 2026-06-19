@@ -11,30 +11,32 @@ import {
 const router = Router();
 
 router.get("/", async (_req: any, res: any) => {
-  const teams = await listarEquipes();
-  res.json(teams);
+  const equipes = await listarEquipes();
+  res.json(equipes);
 });
 
-router.get("/:id", async (req: any, res: any) => {
-  const team = await obterEquipePorId(Number(req.params.id));
+router.get("/:id/detalhes", async (req, res) => {
+  const id = Number(req.params.id);
 
-  if (!team) {
-    return res.status(404).json({ error: "Equipe nao encontrado" });
+  if (isNaN(id)) {
+    return res.status(400).json({ erro: "ID da equipe inválido" });
   }
 
-  res.json(team);
+  const resultado = await obterEquipePorId(id);
+
+  return res.status(200).json(resultado);
 });
 
 router.post("/", async (req: any, res: any) => {
-  const team = await criarEquipe(req.body);
+  const equipe = await criarEquipe(req.body);
 
-  res.status(201).json(team);
+  res.status(201).json(equipe);
 });
 
 router.put("/:id", async (req: any, res: any) => {
-  const team = await atualizarEquipe(Number(req.params.id), req.body);
+  const equipe = await atualizarEquipe(Number(req.params.id), req.body);
 
-  res.json(team);
+  res.json(equipe);
 });
 
 router.delete("/:id", async (req: any, res: any) => {

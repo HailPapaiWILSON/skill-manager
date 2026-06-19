@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { usuarios } from "../db/schema.js";
+import { normalizarTexto } from "../utils/string.js";
 
 export async function listarUsuarios() {
   const resultados = await db.query.usuarios.findMany({
@@ -10,11 +11,11 @@ export async function listarUsuarios() {
     },
   });
 
-  return resultados.map(({ senhaHash, ...usuario }) => usuarios);
+  return resultados.map(({ senhaHash, ...usuario }) => usuario);
 }
 
 export async function obterUsuarioPorId(id: number) {
-  const resultados = await db.query.usuarios.findFirst({
+  const resultado = await db.query.usuarios.findFirst({
     where: eq(usuarios.id, id),
     with: {
       equipe: true,
@@ -26,18 +27,22 @@ export async function obterUsuarioPorId(id: number) {
     },
   });
 
-  if (!resultados) {
+  if (!resultado) {
     return undefined;
   }
 
-  const { senhaHash, ...usuario } = resultados;
+  const { senhaHash, ...usuario } = resultado;
   return usuario;
 }
 
 export async function atualizarBioUsuario(id: number, bio: string) {
   return await db
     .update(usuarios)
-    .set({ bio })
+    .set({ bio: normalizarTexto(bio) })
     .where(eq(usuarios.id, id))
-    .returning();
+    .returning({
+      id: usuarios.id,
+      nome: usuarios.nome,
+      bio: usuarios.bio,
+    });
 }

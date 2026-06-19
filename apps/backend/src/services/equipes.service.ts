@@ -25,9 +25,23 @@ export async function listarEquipes() {
 }
 
 export async function obterEquipePorId(id: number) {
-  return await db.query.equipes.findFirst({
+  const resultado = await db.query.equipes.findFirst({
     where: eq(equipes.id, id),
+    with: {
+      usuarios: {
+        columns: {
+          senhaHash: false,
+        },
+      },
+      projetos: true,
+    },
   });
+
+  if (!resultado) {
+    throw new Error("Equipe não encontrada");
+  }
+
+  return resultado;
 }
 
 export async function criarEquipe(input: CriarEquipeInput) {
