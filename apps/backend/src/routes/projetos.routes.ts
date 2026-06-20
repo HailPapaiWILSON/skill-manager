@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   listarProjetos,
   obterProjetoPorId,
+  obterDetalhesDoProjeto,
   criarProjeto,
   atualizarProjeto,
   deletarProjeto,
@@ -17,9 +18,7 @@ router.get("/", async (_req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const projeto = await obterProjetoPorId(
-    Number(req.params.id)
-  );
+  const projeto = await obterProjetoPorId(Number(req.params.id));
 
   if (!projeto) {
     return res.status(404).json({
@@ -30,6 +29,22 @@ router.get("/:id", async (req, res) => {
   res.json(projeto);
 });
 
+router.get("/:id/detalhes", async (req, res) => {
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "ID invalido" });
+  }
+
+  return obterDetalhesDoProjeto(id)
+    .then((detalhes) => res.status(200).json(detalhes))
+    .catch((error) =>
+      res
+        .status(404)
+        .json({ erro: error.message || "Erro ao buscar detalhes do projeto" }),
+    );
+});
+
 router.post("/", async (req, res) => {
   const projeto = await criarProjeto(req.body);
 
@@ -37,10 +52,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const projeto = await atualizarProjeto(
-    Number(req.params.id),
-    req.body
-  );
+  const projeto = await atualizarProjeto(Number(req.params.id), req.body);
 
   res.json(projeto);
 });
