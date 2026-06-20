@@ -33,12 +33,23 @@ export async function listarProjetos() {
 }
 
 export async function obterProjetoPorId(id: number) {
-  return db.query.projetos.findFirst({
+  const resultado = await db.query.projetos.findFirst({
     where: eq(projetos.id, id),
     with: {
       equipe: true,
+      skills: {
+        with: {
+          skill: true,
+        },
+      },
     },
   });
+
+  if (!resultado) {
+    throw new Error("Projeto não encontrado");
+  }
+
+  return resultado;
 }
 
 export async function criarProjeto(input: CriarProjetoInput) {
