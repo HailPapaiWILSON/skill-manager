@@ -42,19 +42,26 @@ export async function cadastrar(input: CadastroInput) {
     throw new Error("Email ja cadastrado");
   }
 
-  const senhaHash = await bcrypt.hash(input.senha, 10);
+  const hashDaSenha = await bcrypt.hash(input.senha, 10);
 
   const [usuario] = await db
     .insert(usuarios)
     .values({
       nome,
       email,
-      senhaHash,
+      senhaHash: hashDaSenha, // Usando a variável renomeada
       equipeId: equipe.id,
       funcao: "usuario",
     })
     .returning();
-  return usuario;
+
+  if (!usuario) {
+    throw new Error("Erro ao criar o usuário no banco de dados");
+  }
+
+  const { senhaHash: _, ...usuarioSemSenha } = usuario;
+
+  return usuarioSemSenha;
 }
 
 export async function login(input: LoginInput) {
@@ -65,14 +72,16 @@ export async function login(input: LoginInput) {
   });
 
   if (!usuario) {
-    throw new Error("Credenciais invalidas");
+    throw new Error("Credenciais inválidas");
   }
 
   const senhaValida = await bcrypt.compare(input.senha, usuario.senhaHash);
 
   if (!senhaValida) {
-    throw new Error("Credenciais Invalidas");
+    throw new Error("Credenciais inválidas");
   }
 
-  return usuario;
+  const { senhaHash: _, ...usuarioSemSenha } = usuario;
+
+  return usuarioSemSenha;
 }
