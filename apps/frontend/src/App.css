@@ -69,6 +69,77 @@ h2 {
   font-size: 16px;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+/* BACKGROUND */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  /* NOVO FUNDO LIMPO */
+  background: #F1F5F9;
+}
+
+.content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.card {
+  position: absolute;
+  width: 420px;
+  padding: 45px;
+  border-radius: 24px;
+
+  background: #F3F4F6;
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+
+  transition: all 0.6s ease;
+  text-align: center;
+}
+
+/* ANIMAÇÕES */
+.show {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+}
+
+.hide {
+  opacity: 0;
+  transform: translateX(80px) scale(0.95);
+  pointer-events: none;
+}
+
+/* TEXTOS */
+h2 {
+  color: #0f172a;
+  margin-bottom: 15px;
+  font-size: 26px;
+}
+
+.subtitle {
+  color: rgba(15, 23, 42, 0.65);
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
 /* INPUTS */
 input {
   width: 100%;
@@ -153,31 +224,148 @@ button:not(.eye-button):hover {
   border: 1px solid rgba(15, 23, 42, 0.10);
   background: #ffffff;
   color: #0f172a;
-
+  padding-right: 45px;
   font-size: 15px;
 }
 
-/* EYE BUTTON */
 .eye-button {
   position: absolute;
-  right: 12px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
 
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: transparent;
   border: none;
 
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  z-index: 10;
 }
 
 .eye-button svg {
   width: 20px;
   height: 20px;
-  fill: none !important;
-  stroke: #0f172a !important;
+
+  display: block;
+
+  fill: #0f172a !important;
+  stroke: none !important;
+}
+
+input::placeholder {
+  color: rgba(15, 23, 42, 0.45);
+}
+
+input:focus {
+  box-shadow: 0 0 0 2px #7c3aed;
+}
+
+/* BOTÕES */
+button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #3b82f6, #194ab5);
+}
+
+.btn-register {
+  background: linear-gradient(135deg, #a855f7, #602cb8);
+}
+
+button:not(.eye-button):hover {
+  transform: scale(1.03);
+}
+
+/* SWITCH LINK */
+.switch {
+  margin-top: 18px;
+  color: rgba(15, 23, 42, 0.6);
+  font-size: 15px;
+}
+
+.switch span {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.switch span:hover {
+  text-decoration: underline;
+}
+
+/* PASSWORD */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: #ffffff;
+  color: #0f172a;
+  padding-right: 45px;
+  font-size: 15px;
+}
+
+.eye-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  border-radius: 10px;
+}
+
+/* clique */
+.eye-button:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* ícone centralizado perfeito */
+.eye-button svg {
+  width: 26px;
+  height: 26px;
+
+  display: block;
+
+
+  transform: translateY(1px); 
+  color: #64748b;
 }
