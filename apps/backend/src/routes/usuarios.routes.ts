@@ -23,6 +23,12 @@ router.get("/:id", async (req, res) => {
   res.json(usuario);
 });
 
+/* router.put("/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  const { nome, bio } = req.body;
+  const
+}) */
+
 router.put("/:id/bio", async (req, res) => {
   const id = Number(req.params.id);
 

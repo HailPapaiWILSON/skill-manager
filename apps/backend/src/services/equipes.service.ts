@@ -25,6 +25,12 @@ export async function listarEquipes() {
 }
 
 export async function obterEquipePorId(id: number) {
+  return await db.query.equipes.findMany({
+    where: eq(equipes.id, id),
+  });
+}
+
+export async function obterDetalhesEquipe(id: number) {
   const resultado = await db.query.equipes.findFirst({
     where: eq(equipes.id, id),
     with: {

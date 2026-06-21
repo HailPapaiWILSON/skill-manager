@@ -7,12 +7,23 @@ import {
   atualizarEquipe,
   deletarEquipe,
 } from "../services/equipes.service.js";
+import { obterDetalhesDoProjeto } from "../services/projetos.service.js";
 
 const router = Router();
 
 router.get("/", async (_req: any, res: any) => {
   const equipes = await listarEquipes();
   res.json(equipes);
+});
+
+router.get("/:id", async (req: any, res: any) => {
+  const team = await obterEquipePorId(Number(req.params.id));
+
+  if (!team) {
+    return res.status(404).json({ error: "Equipe nao encontrado" });
+  }
+
+  res.json(team);
 });
 
 router.get("/:id/detalhes", async (req, res) => {
@@ -22,7 +33,7 @@ router.get("/:id/detalhes", async (req, res) => {
     return res.status(400).json({ erro: "ID da equipe inválido" });
   }
 
-  const resultado = await obterEquipePorId(id);
+  const resultado = await obterDetalhesDoProjeto(id);
 
   return res.status(200).json(resultado);
 });

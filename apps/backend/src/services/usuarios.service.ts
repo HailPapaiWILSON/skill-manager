@@ -35,6 +35,28 @@ export async function obterUsuarioPorId(id: number) {
   return usuario;
 }
 
+export async function atualizarPerfilUsuario(
+  id: number,
+  nome: string,
+  bio: string,
+) {
+  const [usuario] = await db
+    .update(usuarios)
+    .set({
+      nome: normalizarTexto(nome),
+      bio: normalizarTexto(bio),
+    })
+    .where(eq(usuarios.id, id))
+    .returning({
+      id: usuarios.id,
+      nome: usuarios.nome,
+      email: usuarios.email,
+      bio: usuarios.bio,
+      funcao: usuarios.funcao,
+      equipeId: usuarios.equipeId,
+    });
+}
+
 export async function atualizarBioUsuario(id: number, bio: string) {
   return await db
     .update(usuarios)

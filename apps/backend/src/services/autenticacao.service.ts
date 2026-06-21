@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
@@ -49,7 +50,7 @@ export async function cadastrar(input: CadastroInput) {
     .values({
       nome,
       email,
-      senhaHash: hashDaSenha, // Usando a variável renomeada
+      senhaHash: hashDaSenha,
       equipeId: equipe.id,
       funcao: "usuario",
     })
@@ -81,7 +82,24 @@ export async function login(input: LoginInput) {
     throw new Error("Credenciais inválidas");
   }
 
+  const secret = process.env.JWT_SECRET;
+
+  if (!secret) {
+    throw new Error("JWT_SECRET não configurado");
+  }
+
+  const token = jwt.sign(
+    {
+      id: usuario.id,
+      email: usuario.email,
+      funcao: usuario.funcao,
+      equipeId: usuario.equipeId,
+    },
+    secret,
+    { expiresIn: "7d" },
+  );
+
   const { senhaHash: _, ...usuarioSemSenha } = usuario;
 
-  return usuarioSemSenha;
+  return { usuarioSemSenha, token };
 }
