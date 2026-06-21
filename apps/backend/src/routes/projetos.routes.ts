@@ -9,6 +9,8 @@ import {
   deletarProjeto,
 } from "../services/projetos.service.js";
 
+import { isAdmin } from "../middleware/admin.js";
+
 const router = Router();
 
 router.get("/", async (_req, res) => {
@@ -45,19 +47,19 @@ router.get("/:id/detalhes", async (req, res) => {
     );
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   const projeto = await criarProjeto(req.body);
 
   res.status(201).json(projeto);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   const projeto = await atualizarProjeto(Number(req.params.id), req.body);
 
   res.json(projeto);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   await deletarProjeto(Number(req.params.id));
 
   res.sendStatus(204);

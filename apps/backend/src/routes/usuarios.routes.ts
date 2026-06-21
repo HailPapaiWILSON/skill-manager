@@ -4,6 +4,7 @@ import {
   listarUsuarios,
   obterUsuarioPorId,
   atualizarBioUsuario,
+  atualizarPerfilUsuario,
 } from "../services/usuarios.service.js";
 
 const router = Router();
@@ -23,11 +24,30 @@ router.get("/:id", async (req, res) => {
   res.json(usuario);
 });
 
-/* router.put("/:id", async (req, res) => {
-  const id = Number(req.params.id);
-  const { nome, bio } = req.body;
-  const
-}) */
+router.put("/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const { nome, bio } = req.body;
+    const usuarioLogado = req.usuario; // ← VEM DO TOKEN!
+
+    // VERIFICAÇÃO: Só pode editar o próprio perfil
+    if (!usuarioLogado || usuarioLogado.id !== id) {
+      return res.status(403).json({
+        error: "Você só pode editar seu próprio perfil",
+      });
+    }
+
+    // Validações...
+    if (!nome || typeof nome !== "string") {
+      return res.status(400).json({ error: "Campo 'nome' é obrigatório" });
+    }
+
+    const resultado = await atualizarPerfilUsuario(id, nome, bio || "");
+    res.json(resultado);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 router.put("/:id/bio", async (req, res) => {
   const id = Number(req.params.id);
@@ -45,7 +65,7 @@ router.put("/:id/bio", async (req, res) => {
   }
 
   const resultado = await atualizarBioUsuario(id, bio);
-  
+
   res.json(resultado[0] || { message: "Bio atualizada com sucesso" });
 });
 

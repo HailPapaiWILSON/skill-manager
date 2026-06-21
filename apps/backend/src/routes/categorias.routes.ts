@@ -8,8 +8,9 @@ import {
     deletarCategoria,
 } from "../services/categorias.service.js";
 
-const router = Router();
+import { isAdmin } from "../middleware/admin.js";
 
+const router = Router();
 
 router.get("/", async (_req, res) =>
 {
@@ -34,14 +35,14 @@ router.get("/:id", async (req, res) =>
     res.json(categoria);
 });
 
-router.post("/", async (req, res) =>
+router.post("/", isAdmin, async (req, res) =>
 {
     const categoria = await criarCategoria(req.body);
 
     res.status(201).json(categoria);
 });
 
-router.put("/:id", async (req, res) =>
+router.put("/:id", isAdmin, async (req, res) =>
 {
     const categoria = await atualizarCategoria(
         Number(req.params.id),
@@ -52,7 +53,7 @@ router.put("/:id", async (req, res) =>
 });
 
 
-router.delete("/:id", async (req, res) =>
+router.delete("/:id", isAdmin, async (req, res) =>
 {
     await deletarCategoria(
         Number(req.params.id)

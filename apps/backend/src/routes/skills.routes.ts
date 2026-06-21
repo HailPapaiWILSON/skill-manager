@@ -8,6 +8,8 @@ import {
   deletarSkill,
 } from "../services/skills.service.js";
 
+import { isAdmin } from "../middleware/admin.js";
+
 const router = Router();
 
 router.get("/", async (_req, res) => {
@@ -28,19 +30,19 @@ router.get("/:id", async (req, res) => {
   res.json(skill);
 });
 
-router.post("/", async (req: any, res: any) => {
+router.post("/", isAdmin, async (req: any, res: any) => {
   const skill = await criarSkill(req.body);
 
   res.status(201).json(skill);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   const skill = await atualizarSkill(Number(req.params.id), req.body);
 
   res.json(skill);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   await deletarSkill(Number(req.params.id));
 
   res.sendStatus(204);

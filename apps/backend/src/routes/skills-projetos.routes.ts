@@ -6,6 +6,8 @@ import {
   deletarSkillProjeto,
 } from "../services/skills-projetos.service.js";
 
+import { isAdmin } from "../middleware/admin.js";
+
 const router = Router();
 
 router.get("/", async (_req, res) => {
@@ -14,13 +16,13 @@ router.get("/", async (_req, res) => {
   res.json(dados);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   const relacao = await criarSkillProjeto(req.body);
 
   res.status(201).json(relacao);
 });
 
-router.delete("/:projetoId/:skillId", async (req, res) => {
+router.delete("/:projetoId/:skillId", isAdmin, async (req, res) => {
   await deletarSkillProjeto(
     Number(req.params.projetoId),
     Number(req.params.skillId),
