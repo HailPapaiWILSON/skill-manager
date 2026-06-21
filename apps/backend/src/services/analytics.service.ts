@@ -34,7 +34,6 @@ export async function buscarEspecialistas(skillId: number, nivel?: string) {
     .orderBy(desc(skillsUsuarios.anosExperiencia), asc(usuarios.nome));
 }
 
-
 export async function obterHeatmap() {
   return db
     .select({
@@ -43,18 +42,65 @@ export async function obterHeatmap() {
       skillId: skills.id,
       skill: skills.nome,
       totalEspecialistas: count(skillsUsuarios.usuarioId),
-      nivelMedio: sql<number>ROUND(AVG(
-        CASE ${skillUsuarios.nivel}
+      nivelMedio: sql<number>`ROUND(avg(
+        CASE ${skillsUsuarios.nivel}
           WHEN 'junior' THEN 1
           WHEN 'pleno' THEN 2
           WHEN 'senior' THEN 3
         END
-      ), 1).as('nivelMedio'),
+      ), 1)`.as("nivelMedio"),
     })
     .from(skillsUsuarios)
     .innerJoin(usuarios, eq(usuarios.id, skillsUsuarios.usuarioId))
-    .innerJoin(equipes, eq(equipes.id, usuario.equipeId))
+    .innerJoin(equipes, eq(equipes.id, usuarios.equipeId))
     .innerJoin(skills, eq(skills.id, skillsUsuarios.skillId))
     .groupBy(equipes.id, skills.id)
     .orderBy(asc(equipes.nome), asc(skills.nome));
+}
+
+export async function obterRiscoTecnico(threshold: number = 2) {
+  return db
+    .select({
+      id: skills.id,
+      skill: skills.nome,
+      totalEspecialistas: count(skillsUsuarios.usuarioId),
+    })
+    .from(skills)
+    .leftJoin(skillsUsuarios, eq(skillsUsuarios.skillId, skills.id))
+    .groupBy(skills.id)
+    .having(sql`COUNT(${skillsUsuarios.usuarioId}) <= ${threshold}`)
+    .orderBy(asc(count(skillsUsuarios.usuarioId)), asc(skills.nome));
+}
+
+export async function obterGapsDaEquipe(equipeId: number) {
+  const skillsExistentes = await db
+    .select({
+      id: skills.id,
+    })
+    .from(skillsUsuarios)
+    .innerJoin(usuarios, eq(usuarios.id, skillsUsuarios.usuarioId))
+    .innerJoin(skills, eq(skills.id, skillsUsuarios.skillId))
+    .where(eq(usuarios.equipeId, equipeId));
+
+  const idsExistentes = skillsExistentes.map((s) => s.id);
+
+  return db
+    .selectDistinct({
+      id: skills.id,
+      skill: skills.nome,
+      categoria: categoriasSkills.nome,
+    })
+    .from(skillsProjeto)
+    .innerJoin(projetos, eq(projetos.id, skillsProjeto.projetoId))
+    .innerJoin(skills, eq(skills.id, skillsProjeto.skillId))
+    .leftJoin(categoriasSkills, eq(categoriasSkills.id, skills.categoriaId))
+    .where(
+      and(
+        eq(projetos.equipeId, equipeId),
+        idsExistentes.length > 0
+          ? notInArray(skills.id, idsExistentes)
+          : sql`1=1`,
+      ),
+    )
+    .orderBy(asc(categoriasSkills.nome), asc(skills.nome));
 }
