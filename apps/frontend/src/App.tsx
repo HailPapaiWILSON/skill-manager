@@ -66,9 +66,6 @@ export default function App() {
   };
   return (
     <div className="container">
-      <video autoPlay loop muted playsInline className="background-video">
-        <source src="/minecraft-sunset.1920x1080.mp4" type="video/mp4" />
-      </video>
 
       <div className="overlay" />
 
