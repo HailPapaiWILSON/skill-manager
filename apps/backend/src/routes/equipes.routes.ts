@@ -7,7 +7,7 @@ import {
   atualizarEquipe,
   deletarEquipe,
 } from "../services/equipes.service.js";
-import { obterDetalhesDoProjeto } from "../services/projetos.service.js";
+import { obterDetalhesEquipe } from "../services/equipes.service.js";
 
 import { isAdmin } from "../middleware/admin.js";
 
@@ -35,7 +35,7 @@ router.get("/:id/detalhes", async (req, res) => {
     return res.status(400).json({ erro: "ID da equipe inválido" });
   }
 
-  const resultado = await obterDetalhesDoProjeto(id);
+  const resultado = await obterDetalhesEquipe(id);
 
   return res.status(200).json(resultado);
 });

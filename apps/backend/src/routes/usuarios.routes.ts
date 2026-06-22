@@ -24,49 +24,26 @@ router.get("/:id", async (req, res) => {
   res.json(usuario);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     const { nome, bio } = req.body;
-    const usuarioLogado = req.usuario; // ← VEM DO TOKEN!
-
-    // VERIFICAÇÃO: Só pode editar o próprio perfil
+    const usuarioLogado = req.usuario;
     if (!usuarioLogado || usuarioLogado.id !== id) {
-      return res.status(403).json({
-        error: "Você só pode editar seu próprio perfil",
-      });
+      return res
+        .status(403)
+        .json({ error: "Você só pode editar seu próprio perfil" });
     }
-
-    // Validações...
-    if (!nome || typeof nome !== "string") {
-      return res.status(400).json({ error: "Campo 'nome' é obrigatório" });
+    if (nome === undefined && bio === undefined) {
+      return res
+        .status(400)
+        .json({ error: "Envie pelo menos um campo (nome ou bio)" });
     }
-
-    const resultado = await atualizarPerfilUsuario(id, nome, bio || "");
+    const resultado = await atualizarPerfilUsuario(id, { nome, bio });
     res.json(resultado);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch (error) {
+    next(error);
   }
-});
-
-router.put("/:id/bio", async (req, res) => {
-  const id = Number(req.params.id);
-
-  const { bio } = req.body;
-
-  if (typeof bio !== "string") {
-    return res.status(400).json({ error: "O campo bio deve ser uma string" });
-  }
-
-  const usuarioExistente = await obterUsuarioPorId(id);
-
-  if (!usuarioExistente) {
-    return res.status(404).json({ error: "Usuario nao encontrado" });
-  }
-
-  const resultado = await atualizarBioUsuario(id, bio);
-
-  res.json(resultado[0] || { message: "Bio atualizada com sucesso" });
 });
 
 export default router;

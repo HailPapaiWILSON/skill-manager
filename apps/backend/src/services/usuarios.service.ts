@@ -37,15 +37,21 @@ export async function obterUsuarioPorId(id: number) {
 
 export async function atualizarPerfilUsuario(
   id: number,
-  nome: string,
-  bio: string,
+  dados: { nome?: string; bio?: string },
 ) {
+  const updateData: Partial<typeof usuarios.$inferInsert> = {};
+  if (dados.nome !== undefined) {
+    updateData.nome = normalizarTexto(dados.nome);
+  }
+  if (dados.bio !== undefined) {
+    updateData.bio = normalizarTexto(dados.bio);
+  }
+  if (Object.keys(updateData).length === 0) {
+    throw new Error("Nenhum campo para atualizar");
+  }
   const [usuario] = await db
     .update(usuarios)
-    .set({
-      nome: normalizarTexto(nome),
-      bio: normalizarTexto(bio),
-    })
+    .set(updateData)
     .where(eq(usuarios.id, id))
     .returning({
       id: usuarios.id,
@@ -55,6 +61,7 @@ export async function atualizarPerfilUsuario(
       funcao: usuarios.funcao,
       equipeId: usuarios.equipeId,
     });
+  return usuario;
 }
 
 export async function atualizarBioUsuario(id: number, bio: string) {

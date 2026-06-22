@@ -12,7 +12,7 @@ export function checkOwnerOrAdmin(
 
     const targetUserId = getUserIdFromParams(req);
 
-    if (!isNaN(targetUserId)) {
+    if (isNaN(targetUserId)) {
       return res.status(400).json({ error: "ID de usuário inválido" });
     }
 
