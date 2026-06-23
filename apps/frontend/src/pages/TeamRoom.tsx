@@ -10,6 +10,7 @@ interface Skill {
 
 interface Membro {
   id: number;
+  userId: string;
   nome: string;
   cargo: string;
   skills: Skill[];
@@ -22,6 +23,8 @@ interface FormState {
   nivel: "junior" | "pleno" | "senior";
   anosExperiencia: number;
 }
+
+const STORAGE_KEY = "team_profiles";
 
 const SKILLS_DISPONIVEIS = [
   "React",
@@ -37,6 +40,7 @@ const teamMock: { membros: Membro[] } = {
   membros: [
     {
       id: 1,
+      userId: "seed-1",
       nome: "João Silva",
       cargo: "Frontend Engineer",
       skills: [
@@ -46,6 +50,7 @@ const teamMock: { membros: Membro[] } = {
     },
     {
       id: 2,
+      userId: "seed-2",
       nome: "Maria Souza",
       cargo: "Backend Engineer",
       skills: [
@@ -68,14 +73,28 @@ export default function TeamRoom() {
   const { teamId } = useParams();
   const navigate = useNavigate();
 
-  const [me, setMe] = useState<Membro | null>(null);
+  // 🔐 USUÁRIO LOGADO (vem do login)
+  const currentUser = useMemo(() => {
+    const saved = localStorage.getItem("currentUser");
+    return saved ? JSON.parse(saved) : null;
+  }, []);
+
+  const userId = currentUser?.email; // identidade fixa do usuário
+
+  const [profiles, setProfiles] = useState<Membro[]>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : teamMock.membros;
+  });
+
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<FormState>(initialForm);
 
-  const members = useMemo(
-    () => [...teamMock.membros, ...(me ? [me] : [])],
-    [me]
+  const myProfile = useMemo(
+    () => profiles.find((p) => p.userId === userId),
+    [profiles, userId]
   );
+
+  const members = useMemo(() => profiles, [profiles]);
 
   function handleChange(field: keyof FormState, value: any) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -95,11 +114,13 @@ export default function TeamRoom() {
   }
 
   function saveProfile() {
+    if (!userId) return;
     if (!form.nome || !form.cargo || form.skillsSelecionadas.length === 0)
       return;
 
-    const newMember: Membro = {
-      id: Date.now(),
+    const newProfile: Membro = {
+      id: myProfile?.id ?? Date.now(),
+      userId, // 🔥 AMARRADO AO LOGIN
       nome: form.nome,
       cargo: form.cargo,
       skills: form.skillsSelecionadas.map((skill) => ({
@@ -109,9 +130,33 @@ export default function TeamRoom() {
       })),
     };
 
-    setMe(newMember);
+    setProfiles((prev) => {
+      const exists = prev.some((p) => p.userId === userId);
+
+      const updated = exists
+        ? prev.map((p) => (p.userId === userId ? newProfile : p))
+        : [...prev, newProfile];
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+
     setShowForm(false);
     setForm(initialForm);
+  }
+
+  function startEditProfile() {
+    if (!myProfile) return;
+
+    setForm({
+      nome: myProfile.nome,
+      cargo: myProfile.cargo,
+      skillsSelecionadas: myProfile.skills.map((s) => s.nome),
+      nivel: myProfile.skills[0]?.nivel ?? "pleno",
+      anosExperiencia: myProfile.skills[0]?.anosExperiencia ?? 1,
+    });
+
+    setShowForm(true);
   }
 
   return (
@@ -134,7 +179,9 @@ export default function TeamRoom() {
           <div className="members">
             {members.map((m) => (
               <div className="member-card" key={m.id}>
-                <h3>{m.nome}</h3>
+                <h3>
+                  {m.nome} {m.userId === userId && "(você)"}
+                </h3>
                 <span>{m.cargo}</span>
 
                 <div className="skills">
@@ -153,8 +200,16 @@ export default function TeamRoom() {
         <section className="panel small">
           <h2>Perfil</h2>
 
-          {!me && (
-            <button onClick={() => setShowForm(true)}>Criar perfil</button>
+          {!myProfile && (
+            <button onClick={() => setShowForm(true)}>
+              Criar perfil
+            </button>
+          )}
+
+          {myProfile && (
+            <button onClick={startEditProfile}>
+              Editar meu perfil
+            </button>
           )}
 
           {showForm && (
@@ -171,20 +226,14 @@ export default function TeamRoom() {
                 onChange={(e) => handleChange("cargo", e.target.value)}
               />
 
-              {/* SKILLS MULTI SELECT */}
               <div className="field-group">
                 <label>Especialidades</label>
 
-                <select
-                  value=""
-                  onChange={(e) => toggleSkill(e.target.value)}
-                >
+                <select value="" onChange={(e) => toggleSkill(e.target.value)}>
                   <option value="">Selecionar skill</option>
                   {SKILLS_DISPONIVEIS.map((skill) => (
                     <option key={skill} value={skill}>
-                      {form.skillsSelecionadas.includes(skill)
-                        ? `✓ ${skill}`
-                        : skill}
+                      {skill}
                     </option>
                   ))}
                 </select>
@@ -200,9 +249,7 @@ export default function TeamRoom() {
 
               <select
                 value={form.nivel}
-                onChange={(e) =>
-                  handleChange("nivel", e.target.value)
-                }
+                onChange={(e) => handleChange("nivel", e.target.value)}
               >
                 <option value="junior">Júnior</option>
                 <option value="pleno">Pleno</option>
