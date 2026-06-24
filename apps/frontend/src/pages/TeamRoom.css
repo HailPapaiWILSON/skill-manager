@@ -3,7 +3,6 @@
   background: radial-gradient(circle at top, #0b1220 0%, #020617 70%);
   color: #f8fafc;
   font-family: Inter, Arial, sans-serif;
-
   padding: 24px;
 }
 
@@ -17,26 +16,30 @@
   justify-content: space-between;
   align-items: center;
 
+  padding: 20px;
   margin-bottom: 20px;
 
-  padding: 20px;
   border-radius: 16px;
-
   background: rgba(15, 23, 42, 0.75);
   border: 1px solid #1e293b;
 }
 
-.skill-manager .skill-header p {
-  color: #94a3b8;
+.skill-manager .team-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  background: #0b1220;
+  border: 1px solid #1e293b;
+
+  font-size: 13px;
+  color: #f8fafc;
 }
 
-/* GRID LAYOUT */
+/* LAYOUT (2 colunas clássico) */
 .skill-manager .layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
-
-  min-height: calc(100vh - 120px);
 }
 
 /* PANELS */
@@ -44,18 +47,10 @@
   background: rgba(15, 23, 42, 0.75);
   border: 1px solid #1e293b;
   border-radius: 16px;
-
   padding: 18px;
 }
 
-/* MEMBERS */
-.skill-manager .members {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 14px;
-}
-
-/* CARD */
+/* CARD DA EQUIPE */
 .skill-manager .member-card {
   background: #111827;
   border: 1px solid #1e293b;
@@ -63,38 +58,18 @@
   padding: 14px;
   border-radius: 14px;
 
-  transition: 0.2s;
+  margin-bottom: 12px;
 }
 
-.skill-manager .member-card:hover {
-  transform: translateY(-2px);
-  border-color: #38bdf8;
-}
-
-/* SKILLS */
+/* SKILLS TEXT (simples como no antigo) */
 .skill-manager .skills {
+  margin-top: 8px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-}
+  flex-direction: column;
+  gap: 4px;
 
-.skill-manager .skill-chip {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-
-  padding: 6px 10px;
-  border-radius: 999px;
-
-  background: #0b1220;
-  border: 1px solid #1e293b;
-
-  font-size: 12px;
-}
-
-.skill-manager .skill-chip small {
-  color: #38bdf8;
+  font-size: 13px;
+  color: #cbd5e1;
 }
 
 /* FORM */
@@ -102,9 +77,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 10px;
 }
 
-/* 🔥 IMPORTANTE: não usar input global */
+/* INPUTS */
 .skill-manager input,
 .skill-manager select {
   padding: 10px;
@@ -112,13 +88,20 @@
 
   background: #0b1220;
   border: 1px solid #1e293b;
-  color: white;
+  color: #f8fafc;
+
+  outline: none;
 }
 
-/* BUTTONS (ESCOPADO) */
+/* FOCUS suave */
+.skill-manager input:focus,
+.skill-manager select:focus {
+  border-color: #38bdf8;
+}
+
+/* BUTTON BASE */
 .skill-manager button {
   padding: 10px;
-  margin: 12px;
   border-radius: 10px;
   border: none;
 
@@ -126,66 +109,51 @@
   color: white;
 
   cursor: pointer;
+  transition: 0.2s ease;
 
-  transition: 0.2s;
+  width: 100%;
 }
 
 .skill-manager button:hover {
   background: #2563eb;
 }
 
-.skill-manager .danger {
-  background: #ef4444;
-}
-
-.skill-manager .danger:hover {
-  background: #dc2626;
-}
-
-.skill-manager input::placeholder,
-.skill-manager select::placeholder {
-  color: rgba(148, 163, 184, 0.75);
-  opacity: 1;
-}
-
-.skill-manager .field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.skill-manager .field-group label {
-  margin-left: 5px;
-  margin-top: 5px;
-  font-size: 15px;
-  color: #94a3b8;
-}
-.skill-manager .skills-select {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.skill-manager .skill-btn {
-  padding: 7px 10px;
-  border-radius: 999px;
-
-  border: 1px solid #1e293b;
-  background: #0b1220;
-  color: #cbd5e1;
-
+/* SKILL SELECT (dropdown simples) */
+.skill-manager select {
   cursor: pointer;
-  transition: 0.2s;
-  font-size: 12px;
 }
 
-.skill-manager .skill-btn:hover {
-  border-color: #38bdf8;
+/* TITULOS */
+.skill-manager h2 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #f8fafc;
 }
 
-.skill-manager .skill-btn.active {
-  background: #3b82f6;
-  border-color: #3b82f6;
-  color: white;
+.skill-manager h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .skill-manager .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-manager .skill-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .skill-manager {
+    padding: 12px;
+  }
+
+  .skill-manager .panel {
+    padding: 14px;
+  }
 }
