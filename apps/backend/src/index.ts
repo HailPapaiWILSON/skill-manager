@@ -32,6 +32,4 @@ app.use("/skills-usuarios", skillsUsuariosRouter);
 app.use("/skills-projetos", skillsProjetosRouter);
 app.use("/analytics", analyticsRouter);
 
-const PORT = process.env.PORT;
-
-app.listen(PORT);
+app.listen(3000);

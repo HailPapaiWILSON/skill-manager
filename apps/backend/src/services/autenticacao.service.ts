@@ -82,7 +82,7 @@ export async function login(input: LoginInput) {
     throw new Error("Credenciais inválidas");
   }
 
-  const secret = process.env.JWT_SECRET;
+  const secret = "waises";
 
   if (!secret) {
     throw new Error("JWT_SECRET não configurado");

@@ -34,7 +34,7 @@ export function autenticar(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: "Token not provided" });
   }
 
-  const secret = process.env.JWT_SECRET;
+  const secret = "waises";
 
   if (!secret) {
     throw new Error("JWT_SECRET não configurado");
