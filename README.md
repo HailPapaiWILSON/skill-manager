@@ -26,6 +26,6 @@ Saiba mais sobre a evolução do projeto e as decisões técnicas em [architectu
 
 ## Instalação
 
-Este projeto não possui um processo de instalação independente. Para executá-lo localmente, é necessário utilizá-lo em conjunto com o repositório [skill-manager-frontend](https://github.com/HailPapaiWILSON/skill-manager-skill-frontend).
+Este projeto não possui um processo de instalação independente. Para executá-lo localmente, é necessário utilizá-lo em conjunto com o repositório [skill-manager-frontend](https://github.com/HailPapaiWILSON/skill-manager-frontend).
 
 As instruções para executar o projeto estão disponíveis em [installation.md](./docs/installation.md).
