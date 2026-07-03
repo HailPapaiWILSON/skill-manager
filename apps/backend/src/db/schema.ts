@@ -71,7 +71,7 @@ export const projetos = sqliteTable("projetos", {
     enum: ["planejado", "em_andamento", "concluido", "cancelado"] as const,
   })
     .notNull()
-    .default("planejado"),
+    .default("em_andamento"),
   equipeId: integer("equipe_id")
     .notNull()
     .references(() => equipes.id),
