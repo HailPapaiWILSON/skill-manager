@@ -16,103 +16,110 @@ const equipesData = [
   { nome: "Backend", codigoIngresso: "BACK098" },
   { nome: "Frontend", codigoIngresso: "FRO098" },
   { nome: "DevOps", codigoIngresso: "DEV098" },
-  { nome: "Mobile", codigoIngresso: "MOB098" },
-  { nome: "Data Science", codigoIngresso: "DAT098" },
-  { nome: "QA", codigoIngresso: "QA098" },
   { nome: "Security", codigoIngresso: "SEC098" },
-  { nome: "Product", codigoIngresso: "PRO098" },
-  { nome: "UX/UI", codigoIngresso: "UX098" },
 ];
 
 const categoriasData = [
-  { nome: "Frontend" },
   { nome: "Backend" },
-  { nome: "DevOps" },
-  { nome: "Mobile" },
+  { nome: "Frontend" },
   { nome: "Database" },
+  { nome: "DevOps" },
   { nome: "Cloud" },
-  { nome: "Data Science" },
   { nome: "Security" },
-  { nome: "Testing" },
-  { nome: "Design" },
 ];
 
 const skillsData = [
-  // Frontend
-  { nome: "React", categoriaId: 1 },
-  { nome: "Vue.js", categoriaId: 1 },
-  { nome: "Angular", categoriaId: 1 },
-  { nome: "TypeScript", categoriaId: 1 },
-  { nome: "CSS", categoriaId: 1 },
-  { nome: "SASS", categoriaId: 1 },
-  { nome: "Tailwind", categoriaId: 1 },
-  { nome: "Next.js", categoriaId: 1 },
-  // Backend
-  { nome: "Node.js", categoriaId: 2 },
-  { nome: "Python", categoriaId: 2 },
-  { nome: "Java", categoriaId: 2 },
-  { nome: "C#", categoriaId: 2 },
-  { nome: "PHP", categoriaId: 2 },
-  { nome: "Go", categoriaId: 2 },
-  { nome: "Ruby", categoriaId: 2 },
-  { nome: "NestJS", categoriaId: 2 },
-  // DevOps
-  { nome: "Docker", categoriaId: 3 },
-  { nome: "Kubernetes", categoriaId: 3 },
-  { nome: "AWS", categoriaId: 3 },
-  { nome: "Terraform", categoriaId: 3 },
-  { nome: "GitLab CI", categoriaId: 3 },
-  { nome: "Jenkins", categoriaId: 3 },
-  { nome: "Ansible", categoriaId: 3 },
-  // Mobile
-  { nome: "React Native", categoriaId: 4 },
-  { nome: "Flutter", categoriaId: 4 },
-  { nome: "Swift", categoriaId: 4 },
-  { nome: "Kotlin", categoriaId: 4 },
-  { nome: "iOS", categoriaId: 4 },
-  { nome: "Android", categoriaId: 4 },
-  // Database
-  { nome: "PostgreSQL", categoriaId: 5 },
-  { nome: "MongoDB", categoriaId: 5 },
-  { nome: "Redis", categoriaId: 5 },
-  { nome: "MySQL", categoriaId: 5 },
-  { nome: "Elasticsearch", categoriaId: 5 },
-  { nome: "Cassandra", categoriaId: 5 },
-  // Cloud
-  { nome: "Azure", categoriaId: 6 },
-  { nome: "GCP", categoriaId: 6 },
-  { nome: "Heroku", categoriaId: 6 },
-  { nome: "DigitalOcean", categoriaId: 6 },
-  { nome: "Cloudflare", categoriaId: 6 },
-  // Data Science
-  { nome: "Pandas", categoriaId: 7 },
-  { nome: "NumPy", categoriaId: 7 },
-  { nome: "Scikit-learn", categoriaId: 7 },
-  { nome: "TensorFlow", categoriaId: 7 },
-  { nome: "PyTorch", categoriaId: 7 },
-  { nome: "R", categoriaId: 7 },
-  // Security
-  { nome: "OWASP", categoriaId: 8 },
-  { nome: "Penetration Testing", categoriaId: 8 },
-  { nome: "Encryption", categoriaId: 8 },
-  { nome: "Zero Trust", categoriaId: 8 },
-  { nome: "SIEM", categoriaId: 8 },
-  // Testing
-  { nome: "Jest", categoriaId: 9 },
-  { nome: "Cypress", categoriaId: 9 },
-  { nome: "Selenium", categoriaId: 9 },
-  { nome: "PyTest", categoriaId: 9 },
-  { nome: "JUnit", categoriaId: 9 },
-  // Design
-  { nome: "Figma", categoriaId: 10 },
-  { nome: "Adobe XD", categoriaId: 10 },
-  { nome: "Sketch", categoriaId: 10 },
-  { nome: "Photoshop", categoriaId: 10 },
-  { nome: "Illustrator", categoriaId: 10 },
+  // ========== Backend (categoriaId: 1) ==========
+  // Languages
+  { nome: "Node.js", categoriaId: 1 },
+  { nome: "Python", categoriaId: 1 },
+  { nome: "Java", categoriaId: 1 },
+  { nome: "C#", categoriaId: 1 },
+  { nome: "PHP", categoriaId: 1 },
+  { nome: "Ruby", categoriaId: 1 },
+  { nome: "Go", categoriaId: 1 },
+  { nome: "Rust", categoriaId: 1 },
+  // Frameworks
+  { nome: "Spring Boot", categoriaId: 1 },
+  { nome: "Django", categoriaId: 1 },
+  { nome: "Flask", categoriaId: 1 },
+  { nome: ".NET Core", categoriaId: 1 },
+  { nome: "Laravel", categoriaId: 1 },
+  { nome: "Ruby on Rails", categoriaId: 1 },
+
+  // ========== Frontend (categoriaId: 2) ==========
+  // Languages
+  { nome: "JavaScript", categoriaId: 2 },
+  { nome: "TypeScript", categoriaId: 2 },
+  { nome: "HTML5", categoriaId: 2 },
+  { nome: "CSS", categoriaId: 2 },
+  // Frameworks / Libraries
+  { nome: "React", categoriaId: 2 },
+  { nome: "Angular", categoriaId: 2 },
+  { nome: "Vue.js", categoriaId: 2 },
+  { nome: "Svelte", categoriaId: 2 },
+  { nome: "Next.js", categoriaId: 2 },
+  { nome: "Nuxt.js", categoriaId: 2 },
+
+  // ========== Database (categoriaId: 3) ==========
+  // (These are already standalone DBMS names)
+  { nome: "PostgreSQL", categoriaId: 3 },
+  { nome: "MySQL", categoriaId: 3 },
+  { nome: "MongoDB", categoriaId: 3 },
+  { nome: "Redis", categoriaId: 3 },
+  { nome: "Cassandra", categoriaId: 3 },
+  { nome: "Oracle DB", categoriaId: 3 },
+  { nome: "SQLite", categoriaId: 3 },
+  { nome: "DynamoDB", categoriaId: 3 },
+
+  // ========== DevOps (categoriaId: 4) ==========
+  { nome: "Docker", categoriaId: 4 },
+  { nome: "Kubernetes", categoriaId: 4 },
+  { nome: "Jenkins", categoriaId: 4 },
+  { nome: "Ansible", categoriaId: 4 },
+  { nome: "Terraform", categoriaId: 4 },
+  { nome: "GitLab CI/CD", categoriaId: 4 },
+  { nome: "GitHub Actions", categoriaId: 4 },
+  { nome: "Prometheus", categoriaId: 4 },
+  { nome: "Grafana", categoriaId: 4 },
+
+  // ========== Cloud (categoriaId: 5) ==========
+  { nome: "AWS", categoriaId: 5 },
+  { nome: "Microsoft Azure", categoriaId: 5 },
+  { nome: "Google Cloud Platform", categoriaId: 5 },
+  { nome: "IBM Cloud", categoriaId: 5 },
+  { nome: "Oracle Cloud", categoriaId: 5 },
+  { nome: "Alibaba Cloud", categoriaId: 5 },
+  { nome: "OpenStack", categoriaId: 5 },
+
+  // ========== Security (categoriaId: 6) ==========
+  { nome: "OWASP", categoriaId: 6 },
+  { nome: "Penetration Testing", categoriaId: 6 },
+  { nome: "Kali Linux", categoriaId: 6 },
+  { nome: "Metasploit", categoriaId: 6 },
+  { nome: "Encryption (AES)", categoriaId: 6 },
+  { nome: "Encryption (RSA)", categoriaId: 6 },
+  { nome: "OAuth", categoriaId: 6 },
+  { nome: "JWT", categoriaId: 6 },
+  { nome: "SAML", categoriaId: 6 },
+  { nome: "SOC2 Compliance", categoriaId: 6 },
+  { nome: "ISO 27001", categoriaId: 6 },
+  { nome: "Network Security", categoriaId: 6 },
+  { nome: "Firewalls", categoriaId: 6 },
+  { nome: "IDS/IPS", categoriaId: 6 },
+  { nome: "Secure Coding", categoriaId: 6 },
+  { nome: "Vulnerability Management", categoriaId: 6 },
+  { nome: "Nessus", categoriaId: 6 },
+  { nome: "Qualys", categoriaId: 6 },
+  { nome: "SIEM", categoriaId: 6 },
+  { nome: "Zero Trust", categoriaId: 6 },
 ];
 
+// =====================
+// USUÁRIOS (apenas times mantidos, mínimo 5 por time, exatamente 3 admins)
+// =====================
 const usuariosData = [
-  // Administrators
+  // Administradores (3)
   {
     nome: "Ana Silva",
     email: "ana@empresa.com",
@@ -129,31 +136,15 @@ const usuariosData = [
     funcao: "administrador" as const,
     equipeNome: "Backend",
   },
-  // Backend
   {
     nome: "Carlos Santos",
     email: "carlos@empresa.com",
     senha: "senha123",
     bio: "Desenvolvedor fullstack apaixonado por React",
-    funcao: "usuario" as const,
+    funcao: "administrador" as const,
     equipeNome: "Frontend",
   },
-  {
-    nome: "Mariana Oliveira",
-    email: "mariana@empresa.com",
-    senha: "senha123",
-    bio: "DevOps engineer com foco em AWS e Kubernetes",
-    funcao: "usuario" as const,
-    equipeNome: "DevOps",
-  },
-  {
-    nome: "João Pereira",
-    email: "joao@empresa.com",
-    senha: "senha123",
-    bio: "Mobile developer especialista em React Native",
-    funcao: "usuario" as const,
-    equipeNome: "Mobile",
-  },
+  // Backend (já temos Ana, Paulo; precisamos de +3 para chegar a 5)
   {
     nome: "Beatriz Lima",
     email: "beatriz@empresa.com",
@@ -161,14 +152,6 @@ const usuariosData = [
     bio: "Backend developer com foco em Node.js e Python",
     funcao: "usuario" as const,
     equipeNome: "Backend",
-  },
-  {
-    nome: "Rafael Costa",
-    email: "rafael@empresa.com",
-    senha: "senha123",
-    bio: "Frontend developer expert em TypeScript e React",
-    funcao: "usuario" as const,
-    equipeNome: "Frontend",
   },
   {
     nome: "Fernanda Alves",
@@ -179,12 +162,54 @@ const usuariosData = [
     equipeNome: "Backend",
   },
   {
-    nome: "Lucas Martins",
-    email: "lucas@empresa.com",
+    nome: "Lívia Ferreira",
+    email: "livia@empresa.com",
     senha: "senha123",
-    bio: "Especialista em mobile com Flutter e Kotlin",
+    bio: "Desenvolvedora backend com experiência em Java e Go",
     funcao: "usuario" as const,
-    equipeNome: "Mobile",
+    equipeNome: "Backend",
+  },
+  // Frontend (Carlos já incluso; precisamos de +4)
+  {
+    nome: "Rafael Costa",
+    email: "rafael@empresa.com",
+    senha: "senha123",
+    bio: "Frontend developer expert em TypeScript e React",
+    funcao: "usuario" as const,
+    equipeNome: "Frontend",
+  },
+  {
+    nome: "Thiago Souza",
+    email: "thiago@empresa.com",
+    senha: "senha123",
+    bio: "Fullstack developer com foco em Node.js e React",
+    funcao: "usuario" as const,
+    equipeNome: "Frontend",
+  },
+  {
+    nome: "Marcos Vinícius",
+    email: "marcos@empresa.com",
+    senha: "senha123",
+    bio: "Especialista em UI com React e CSS",
+    funcao: "usuario" as const,
+    equipeNome: "Frontend",
+  },
+  {
+    nome: "Juliana Castro",
+    email: "juliana.c@empresa.com",
+    senha: "senha123",
+    bio: "Desenvolvedora frontend com foco em Vue.js",
+    funcao: "usuario" as const,
+    equipeNome: "Frontend",
+  },
+  // DevOps (Mariana, Camila; +3)
+  {
+    nome: "Mariana Oliveira",
+    email: "mariana@empresa.com",
+    senha: "senha123",
+    bio: "DevOps engineer com foco em AWS e Kubernetes",
+    funcao: "usuario" as const,
+    equipeNome: "DevOps",
   },
   {
     nome: "Camila Rocha",
@@ -195,48 +220,30 @@ const usuariosData = [
     equipeNome: "DevOps",
   },
   {
-    nome: "Thiago Souza",
-    email: "thiago@empresa.com",
+    nome: "André Lima",
+    email: "andre@empresa.com",
     senha: "senha123",
-    bio: "Fullstack developer com foco em Node.js e React",
+    bio: "Engenheiro DevOps com foco em CI/CD",
     funcao: "usuario" as const,
-    equipeNome: "Frontend",
-  },
-  // New users for Data Science
-  {
-    nome: "Gabriela Nunes",
-    email: "gabriela@empresa.com",
-    senha: "senha123",
-    bio: "Data Scientist com especialização em machine learning",
-    funcao: "usuario" as const,
-    equipeNome: "Data Science",
+    equipeNome: "DevOps",
   },
   {
-    nome: "Roberto Silva",
-    email: "roberto@empresa.com",
+    nome: "Bruna Cardoso",
+    email: "bruna@empresa.com",
     senha: "senha123",
-    bio: "Analista de dados com experiência em Python e SQL",
+    bio: "Especialista em infraestrutura e Docker",
     funcao: "usuario" as const,
-    equipeNome: "Data Science",
-  },
-  // New users for QA
-  {
-    nome: "Patrícia Ferreira",
-    email: "patricia@empresa.com",
-    senha: "senha123",
-    bio: "QA Engineer especialista em testes automatizados",
-    funcao: "usuario" as const,
-    equipeNome: "QA",
+    equipeNome: "DevOps",
   },
   {
-    nome: "Daniel Oliveira",
-    email: "daniel@empresa.com",
+    nome: "Diego Almeida",
+    email: "diego@empresa.com",
     senha: "senha123",
-    bio: "Engenheiro de qualidade com foco em performance",
+    bio: "DevOps com experiência em Kubernetes e GitLab",
     funcao: "usuario" as const,
-    equipeNome: "QA",
+    equipeNome: "DevOps",
   },
-  // New users for Security
+  // Security (Isabela, Rodrigo; +3)
   {
     nome: "Isabela Costa",
     email: "isabela@empresa.com",
@@ -253,42 +260,35 @@ const usuariosData = [
     funcao: "usuario" as const,
     equipeNome: "Security",
   },
-  // New users for Product
   {
-    nome: "Aline Martins",
-    email: "aline@empresa.com",
+    nome: "Carla Menezes",
+    email: "carla@empresa.com",
     senha: "senha123",
-    bio: "Product Manager apaixonada por tecnologia e inovação",
+    bio: "Especialista em segurança ofensiva e pentest",
     funcao: "usuario" as const,
-    equipeNome: "Product",
+    equipeNome: "Security",
   },
   {
-    nome: "Felipe Andrade",
-    email: "felipe@empresa.com",
+    nome: "Eduardo Rocha",
+    email: "eduardo@empresa.com",
     senha: "senha123",
-    bio: "Product Owner com experiência em métodos ágeis",
+    bio: "Engenheiro de segurança com foco em SIEM",
     funcao: "usuario" as const,
-    equipeNome: "Product",
-  },
-  // New users for UX/UI
-  {
-    nome: "Juliana Araújo",
-    email: "juliana@empresa.com",
-    senha: "senha123",
-    bio: "UX Designer com foco em experiência do usuário",
-    funcao: "usuario" as const,
-    equipeNome: "UX/UI",
+    equipeNome: "Security",
   },
   {
-    nome: "Marcelo Gomes",
-    email: "marcelo@empresa.com",
+    nome: "Patricia Nogueira",
+    email: "patricia.n@empresa.com",
     senha: "senha123",
-    bio: "UI Designer especialista em interfaces web",
+    bio: "Analista de vulnerabilidades e compliance",
     funcao: "usuario" as const,
-    equipeNome: "UX/UI",
+    equipeNome: "Security",
   },
 ];
 
+// =====================
+// USER-SKILLS (apenas usuários e skills mantidos)
+// =====================
 const skillsUsuariosData = [
   // Ana (Backend)
   {
@@ -305,7 +305,7 @@ const skillsUsuariosData = [
   },
   {
     usuarioNome: "Ana Silva",
-    skillNome: "PostgreSQL",
+    skillNome: "MySQL",
     nivel: "senior" as const,
     anos: 5,
   },
@@ -330,11 +330,11 @@ const skillsUsuariosData = [
   },
   {
     usuarioNome: "Paulo Mendes",
-    skillNome: "PostgreSQL",
+    skillNome: "MySQL",
     nivel: "senior" as const,
     anos: 6,
   },
-  // Carlos (Frontend)
+  // Carlos (Frontend, admin)
   {
     usuarioNome: "Carlos Santos",
     skillNome: "React",
@@ -356,6 +356,139 @@ const skillsUsuariosData = [
   {
     usuarioNome: "Carlos Santos",
     skillNome: "Node.js",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  // Beatriz (Backend)
+  {
+    usuarioNome: "Beatriz Lima",
+    skillNome: "Node.js",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Beatriz Lima",
+    skillNome: "Python",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  {
+    usuarioNome: "Beatriz Lima",
+    skillNome: "MySQL",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Beatriz Lima",
+    skillNome: "Docker",
+    nivel: "junior" as const,
+    anos: 1,
+  },
+  // Fernanda (Backend)
+  {
+    usuarioNome: "Fernanda Alves",
+    skillNome: "MySQL",
+    nivel: "senior" as const,
+    anos: 5,
+  },
+  {
+    usuarioNome: "Fernanda Alves",
+    skillNome: "MongoDB",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Fernanda Alves",
+    skillNome: "Python",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  // Lívia (Backend)
+  {
+    usuarioNome: "Lívia Ferreira",
+    skillNome: "Java",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Lívia Ferreira",
+    skillNome: "Go",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  {
+    usuarioNome: "Lívia Ferreira",
+    skillNome: "MySQL",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  // Rafael (Frontend)
+  {
+    usuarioNome: "Rafael Costa",
+    skillNome: "React",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Rafael Costa",
+    skillNome: "TypeScript",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Rafael Costa",
+    skillNome: "Vue.js",
+    nivel: "junior" as const,
+    anos: 1,
+  },
+  // Thiago (Frontend)
+  {
+    usuarioNome: "Thiago Souza",
+    skillNome: "React",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Thiago Souza",
+    skillNome: "Node.js",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  {
+    usuarioNome: "Thiago Souza",
+    skillNome: "TypeScript",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Thiago Souza",
+    skillNome: "CSS",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  // Marcos Vinícius (Frontend)
+  {
+    usuarioNome: "Marcos Vinícius",
+    skillNome: "React",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  {
+    usuarioNome: "Marcos Vinícius",
+    skillNome: "CSS",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  // Juliana Castro (Frontend)
+  {
+    usuarioNome: "Juliana Castro",
+    skillNome: "Vue.js",
+    nivel: "pleno" as const,
+    anos: 3,
+  },
+  {
+    usuarioNome: "Juliana Castro",
+    skillNome: "TypeScript",
     nivel: "pleno" as const,
     anos: 2,
   },
@@ -390,107 +523,6 @@ const skillsUsuariosData = [
     nivel: "pleno" as const,
     anos: 2,
   },
-  // João (Mobile)
-  {
-    usuarioNome: "João Pereira",
-    skillNome: "React Native",
-    nivel: "senior" as const,
-    anos: 4,
-  },
-  {
-    usuarioNome: "João Pereira",
-    skillNome: "TypeScript",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "João Pereira",
-    skillNome: "Swift",
-    nivel: "pleno" as const,
-    anos: 2,
-  },
-  // Beatriz (Backend)
-  {
-    usuarioNome: "Beatriz Lima",
-    skillNome: "Node.js",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Beatriz Lima",
-    skillNome: "Python",
-    nivel: "pleno" as const,
-    anos: 2,
-  },
-  {
-    usuarioNome: "Beatriz Lima",
-    skillNome: "MySQL",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Beatriz Lima",
-    skillNome: "Docker",
-    nivel: "junior" as const,
-    anos: 1,
-  },
-  // Rafael (Frontend)
-  {
-    usuarioNome: "Rafael Costa",
-    skillNome: "React",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Rafael Costa",
-    skillNome: "TypeScript",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Rafael Costa",
-    skillNome: "Vue.js",
-    nivel: "junior" as const,
-    anos: 1,
-  },
-  // Fernanda (Backend)
-  {
-    usuarioNome: "Fernanda Alves",
-    skillNome: "PostgreSQL",
-    nivel: "senior" as const,
-    anos: 5,
-  },
-  {
-    usuarioNome: "Fernanda Alves",
-    skillNome: "MongoDB",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Fernanda Alves",
-    skillNome: "Python",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  // Lucas (Mobile)
-  {
-    usuarioNome: "Lucas Martins",
-    skillNome: "Flutter",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Lucas Martins",
-    skillNome: "Kotlin",
-    nivel: "pleno" as const,
-    anos: 2,
-  },
-  {
-    usuarioNome: "Lucas Martins",
-    skillNome: "React Native",
-    nivel: "junior" as const,
-    anos: 1,
-  },
   // Camila (DevOps)
   {
     usuarioNome: "Camila Rocha",
@@ -516,104 +548,42 @@ const skillsUsuariosData = [
     nivel: "junior" as const,
     anos: 1,
   },
-  // Thiago (Frontend)
+  // André (DevOps)
   {
-    usuarioNome: "Thiago Souza",
-    skillNome: "React",
+    usuarioNome: "André Lima",
+    skillNome: "Docker",
     nivel: "pleno" as const,
     anos: 3,
   },
   {
-    usuarioNome: "Thiago Souza",
-    skillNome: "Node.js",
+    usuarioNome: "André Lima",
+    skillNome: "GitLab CI/CD",
+    nivel: "pleno" as const,
+    anos: 2,
+  },
+  // Bruna (DevOps)
+  {
+    usuarioNome: "Bruna Cardoso",
+    skillNome: "Kubernetes",
     nivel: "pleno" as const,
     anos: 2,
   },
   {
-    usuarioNome: "Thiago Souza",
-    skillNome: "TypeScript",
+    usuarioNome: "Bruna Cardoso",
+    skillNome: "AWS",
     nivel: "pleno" as const,
     anos: 3,
   },
+  // Diego (DevOps)
   {
-    usuarioNome: "Thiago Souza",
-    skillNome: "CSS",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  // Gabriela (Data Science)
-  {
-    usuarioNome: "Gabriela Nunes",
-    skillNome: "Python",
-    nivel: "senior" as const,
-    anos: 5,
-  },
-  {
-    usuarioNome: "Gabriela Nunes",
-    skillNome: "Pandas",
-    nivel: "senior" as const,
-    anos: 4,
-  },
-  {
-    usuarioNome: "Gabriela Nunes",
-    skillNome: "TensorFlow",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Gabriela Nunes",
-    skillNome: "PostgreSQL",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  // Roberto (Data Science)
-  {
-    usuarioNome: "Roberto Silva",
-    skillNome: "Python",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Roberto Silva",
-    skillNome: "NumPy",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Roberto Silva",
-    skillNome: "Scikit-learn",
+    usuarioNome: "Diego Almeida",
+    skillNome: "Terraform",
     nivel: "pleno" as const,
     anos: 2,
   },
-  // Patrícia (QA)
   {
-    usuarioNome: "Patrícia Ferreira",
-    skillNome: "Cypress",
-    nivel: "senior" as const,
-    anos: 4,
-  },
-  {
-    usuarioNome: "Patrícia Ferreira",
-    skillNome: "Jest",
-    nivel: "senior" as const,
-    anos: 4,
-  },
-  {
-    usuarioNome: "Patrícia Ferreira",
-    skillNome: "Selenium",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  // Daniel (QA)
-  {
-    usuarioNome: "Daniel Oliveira",
-    skillNome: "PyTest",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Daniel Oliveira",
-    skillNome: "JUnit",
+    usuarioNome: "Diego Almeida",
+    skillNome: "GitLab CI/CD",
     nivel: "pleno" as const,
     anos: 2,
   },
@@ -649,61 +619,42 @@ const skillsUsuariosData = [
     nivel: "pleno" as const,
     anos: 2,
   },
-  // Aline (Product)
+  // Carla (Security)
   {
-    usuarioNome: "Aline Martins",
-    skillNome: "TypeScript",
+    usuarioNome: "Carla Menezes",
+    skillNome: "OWASP",
     nivel: "pleno" as const,
     anos: 3,
   },
   {
-    usuarioNome: "Aline Martins",
-    skillNome: "React",
+    usuarioNome: "Carla Menezes",
+    skillNome: "Encryption (AES)",
     nivel: "pleno" as const,
-    anos: 3,
-  },
-  // Felipe (Product)
-  {
-    usuarioNome: "Felipe Andrade",
-    skillNome: "React",
-    nivel: "junior" as const,
     anos: 2,
   },
-  // Juliana (UX/UI)
+  // Eduardo (Security)
   {
-    usuarioNome: "Juliana Araújo",
-    skillNome: "Figma",
-    nivel: "senior" as const,
-    anos: 5,
-  },
-  {
-    usuarioNome: "Juliana Araújo",
-    skillNome: "Adobe XD",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  {
-    usuarioNome: "Juliana Araújo",
-    skillNome: "CSS",
-    nivel: "pleno" as const,
-    anos: 3,
-  },
-  // Marcelo (UX/UI)
-  {
-    usuarioNome: "Marcelo Gomes",
-    skillNome: "Photoshop",
+    usuarioNome: "Eduardo Rocha",
+    skillNome: "SIEM",
     nivel: "pleno" as const,
     anos: 4,
   },
   {
-    usuarioNome: "Marcelo Gomes",
-    skillNome: "Illustrator",
+    usuarioNome: "Eduardo Rocha",
+    skillNome: "Penetration Testing",
     nivel: "pleno" as const,
-    anos: 3,
+    anos: 2,
+  },
+  // Patricia (Security)
+  {
+    usuarioNome: "Patricia Nogueira",
+    skillNome: "Zero Trust",
+    nivel: "pleno" as const,
+    anos: 2,
   },
   {
-    usuarioNome: "Marcelo Gomes",
-    skillNome: "Figma",
+    usuarioNome: "Patricia Nogueira",
+    skillNome: "Encryption (RSA)",
     nivel: "pleno" as const,
     anos: 3,
   },
@@ -726,11 +677,6 @@ const projetosData = [
     equipeNome: "DevOps",
   },
   {
-    nome: "App Mobile",
-    descricao: "Aplicativo móvel multiplataforma",
-    equipeNome: "Mobile",
-  },
-  {
     nome: "Sistema de Pagamentos",
     descricao: "Microserviço de pagamentos",
     equipeNome: "Backend",
@@ -740,36 +686,10 @@ const projetosData = [
     descricao: "Site institucional em Next.js",
     equipeNome: "Frontend",
   },
-  // New projects
-  {
-    nome: "Data Pipeline",
-    descricao: "Pipeline de processamento de dados em tempo real",
-    equipeNome: "Data Science",
-  },
-  {
-    nome: "ML Model API",
-    descricao: "API para servir modelos de machine learning",
-    equipeNome: "Data Science",
-  },
-  {
-    nome: "Test Automation Framework",
-    descricao: "Framework para testes automatizados",
-    equipeNome: "QA",
-  },
   {
     nome: "Security Monitoring",
     descricao: "Sistema de monitoramento de segurança",
     equipeNome: "Security",
-  },
-  {
-    nome: "User Analytics",
-    descricao: "Plataforma de análise de comportamento de usuários",
-    equipeNome: "Product",
-  },
-  {
-    nome: "Design System",
-    descricao: "Sistema de design unificado para a empresa",
-    equipeNome: "UX/UI",
   },
   {
     nome: "User Authentication",
@@ -786,11 +706,6 @@ const projetosData = [
     descricao: "Sistema de orquestração de containers",
     equipeNome: "DevOps",
   },
-  {
-    nome: "Mobile Analytics SDK",
-    descricao: "SDK para analytics em aplicativos mobile",
-    equipeNome: "Mobile",
-  },
 ];
 
 const skillsProjetoData = [
@@ -806,9 +721,6 @@ const skillsProjetoData = [
   { projetoNome: "Infraestrutura Cloud", skillNome: "AWS" },
   { projetoNome: "Infraestrutura Cloud", skillNome: "Terraform" },
   { projetoNome: "Infraestrutura Cloud", skillNome: "Kubernetes" },
-  // App Mobile
-  { projetoNome: "App Mobile", skillNome: "React Native" },
-  { projetoNome: "App Mobile", skillNome: "TypeScript" },
   // Sistema de Pagamentos
   { projetoNome: "Sistema de Pagamentos", skillNome: "Python" },
   { projetoNome: "Sistema de Pagamentos", skillNome: "Docker" },
@@ -816,30 +728,10 @@ const skillsProjetoData = [
   // Landing Page
   { projetoNome: "Landing Page", skillNome: "React" },
   { projetoNome: "Landing Page", skillNome: "CSS" },
-  // Data Pipeline
-  { projetoNome: "Data Pipeline", skillNome: "Python" },
-  { projetoNome: "Data Pipeline", skillNome: "Pandas" },
-  { projetoNome: "Data Pipeline", skillNome: "PostgreSQL" },
-  // ML Model API
-  { projetoNome: "ML Model API", skillNome: "Python" },
-  { projetoNome: "ML Model API", skillNome: "TensorFlow" },
-  { projetoNome: "ML Model API", skillNome: "Docker" },
-  // Test Automation Framework
-  { projetoNome: "Test Automation Framework", skillNome: "Cypress" },
-  { projetoNome: "Test Automation Framework", skillNome: "Jest" },
-  { projetoNome: "Test Automation Framework", skillNome: "TypeScript" },
   // Security Monitoring
   { projetoNome: "Security Monitoring", skillNome: "OWASP" },
   { projetoNome: "Security Monitoring", skillNome: "SIEM" },
   { projetoNome: "Security Monitoring", skillNome: "AWS" },
-  // User Analytics
-  { projetoNome: "User Analytics", skillNome: "Python" },
-  { projetoNome: "User Analytics", skillNome: "PostgreSQL" },
-  { projetoNome: "User Analytics", skillNome: "React" },
-  // Design System
-  { projetoNome: "Design System", skillNome: "Figma" },
-  { projetoNome: "Design System", skillNome: "React" },
-  { projetoNome: "Design System", skillNome: "TypeScript" },
   // User Authentication
   { projetoNome: "User Authentication", skillNome: "Node.js" },
   { projetoNome: "User Authentication", skillNome: "PostgreSQL" },
@@ -852,10 +744,6 @@ const skillsProjetoData = [
   { projetoNome: "Container Orchestration", skillNome: "Kubernetes" },
   { projetoNome: "Container Orchestration", skillNome: "Docker" },
   { projetoNome: "Container Orchestration", skillNome: "AWS" },
-  // Mobile Analytics SDK
-  { projetoNome: "Mobile Analytics SDK", skillNome: "React Native" },
-  { projetoNome: "Mobile Analytics SDK", skillNome: "Kotlin" },
-  { projetoNome: "Mobile Analytics SDK", skillNome: "Swift" },
 ];
 
 async function seed() {
@@ -890,16 +778,12 @@ async function seed() {
     // SKILLS
     // =====================
     const categoriaPorId: Record<number, string> = {
-      1: "Frontend",
-      2: "Backend",
-      3: "DevOps",
-      4: "Mobile",
-      5: "Database",
-      6: "Cloud",
-      7: "Data Science",
-      8: "Security",
-      9: "Testing",
-      10: "Design",
+      1: "Backend",
+      2: "Frontend",
+      3: "Database",
+      4: "DevOps",
+      5: "Cloud",
+      6: "Security",
     };
 
     const skillsWithCorrectCategoria = skillsData.map((s) => {
